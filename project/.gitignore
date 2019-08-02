@@ -1,0 +1,9 @@
+# Godot-specific ignores
+.import/
+
+# Mono-specific ignores
+.mono/
+
+# System/tool-specific ignores
+.directory
+*~
