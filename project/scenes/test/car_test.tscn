@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://objects/roadgraph/RoadGraph.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/roadgraph/RoadGraphConnection.tscn" type="PackedScene" id=2]
 [ext_resource path="res://objects/roadgraph/RoadGraphNode.tscn" type="PackedScene" id=3]
 [ext_resource path="res://objects/car/Car.tscn" type="PackedScene" id=4]
+[ext_resource path="res://objects/car/PlayerCar.tscn" type="PackedScene" id=5]
 
 [node name="Node2D" type="Node2D"]
 
@@ -75,5 +76,10 @@ position = Vector2( 550.516, 195.947 )
 [node name="Car" parent="." instance=ExtResource( 4 )]
 road_graph = NodePath("../RoadGraph")
 target_graph_node = NodePath("../RoadGraph/RoadGraphNodes/RoadGraphNode")
+
+[node name="PlayerCar" parent="." instance=ExtResource( 5 )]
+position = Vector2( 0, 480.044 )
+road_graph = NodePath("../RoadGraph")
+target_graph_node = NodePath("../RoadGraph/RoadGraphNodes/RoadGraphNode4")
 
 [editable path="RoadGraph"]

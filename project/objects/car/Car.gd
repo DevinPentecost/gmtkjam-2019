@@ -1,4 +1,5 @@
 extends Area2D
+class_name Car
 
 export(NodePath) var road_graph = null
 onready var _road_graph = get_node(road_graph)
@@ -10,12 +11,13 @@ onready var _target_graph_node = get_node(target_graph_node)
 #Where we're going to next after we reach the end
 var next_graph_node = null
 var turn_direction = null #False for Left, True for Right, Null for Forward/NA
-var turn_distance_start = 20000 #How far away to pick a new direction
+var turn_distance_start = 40000 #How far away to pick a new direction (Squared)
 var min_turn_threshold = 0.5 #Radians of turn to need a signal
 
 #How fast a car goes
 export(float) var speed = 100
 var _close_enough_threshold = 10
+var current_direction = null
 
 #Animating the blinker
 var blink_on = false
@@ -46,6 +48,7 @@ func _physics_process(delta):
 	#Point towards it
 	var towards_rotation = _target_graph_node.global_position.angle_to_point(global_position)
 	rotation = towards_rotation
+	current_direction = _target_graph_node.global_position.direction_to(global_position)
 
 func next_destination():
 	#Start going to the next one and lose our previous 'next'
@@ -54,12 +57,20 @@ func next_destination():
 	#No current turn
 	next_graph_node = null
 	turn_direction = null
+	_show_blinker(null)
 	$BlinkerTimer.stop()
 
 func pick_next_destination():
 	#Ask for a new connection
-	var new_connection = _road_graph._get_random_connection(_target_graph_node)
-	next_graph_node = new_connection[1]
+	var new_connection = _road_graph.get_random_connection(_target_graph_node)
+	set_next_destination(new_connection[1])
+	
+	
+
+func set_next_destination(destination_node):
+	
+	#Assign it
+	next_graph_node = destination_node
 	
 	#Are we turning?
 	var next_angle = _target_graph_node.global_position.angle_to_point(global_position)
@@ -78,7 +89,12 @@ func _on_BlinkerTimer_timeout():
 	
 	#Toggle our blink
 	blink_on = !blink_on
-	var turn_word = "left" if turn_direction else "right"
-	if turn_direction == null: turn_word = 'straight, no blink please'
-	print("BLINK ", blink_on, " ", turn_word)
+	_show_blinker(turn_direction, blink_on)
 	
+func _show_blinker(blinker, on=false):
+	if blinker == null:
+		$Sprite/LeftBlinker.visible = false
+		$Sprite/RightBlinker.visible = false
+	
+	var target_blinker = $Sprite/LeftBlinker if not blinker else $Sprite/RightBlinker
+	target_blinker.visible = on
