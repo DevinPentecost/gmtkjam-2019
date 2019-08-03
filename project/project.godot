@@ -24,6 +24,10 @@ config/name="GMTK 2019"
 run/main_scene="res://main_scenes/main_menu.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/width=960
+
 [input]
 
 player_turn_left={
