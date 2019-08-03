@@ -7,6 +7,7 @@ var base_score = 100.0
 var current_score = base_score
 var score_time_loss = 10.0 #Per second
 var impatient = false
+var bonus_time = 5.0
 
 #To and from locations
 var _source = null
