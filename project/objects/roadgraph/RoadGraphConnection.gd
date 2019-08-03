@@ -36,6 +36,9 @@ func set_node_b(__node_b):
 	update()
 
 func _get_nodes():
+	if not is_inside_tree():
+		return
+	
 	if node_a:
 		_node_a = get_node(node_a)
 	if node_b:
@@ -80,7 +83,10 @@ func _draw():
 	var lerp_position = start_position.linear_interpolate(end_position, lerp_amount)
 	draw_circle(lerp_position, lerp_draw_radius, lerp_draw_color)
 
-func get_forward_node():
+func get_source_node():
 	#Depends on which way we're facing
 	return _node_a if a_to_b else _node_b
 
+func get_destination_node():
+	#Depends on which way we're going
+	return _node_b if a_to_b else _node_a

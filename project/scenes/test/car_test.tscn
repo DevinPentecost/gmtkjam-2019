@@ -1,0 +1,85 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://objects/roadgraph/RoadGraph.tscn" type="PackedScene" id=1]
+[ext_resource path="res://objects/roadgraph/RoadGraphConnection.tscn" type="PackedScene" id=2]
+[ext_resource path="res://objects/roadgraph/RoadGraphNode.tscn" type="PackedScene" id=3]
+[ext_resource path="res://objects/car/Car.tscn" type="PackedScene" id=4]
+[ext_resource path="res://objects/car/PlayerCar.tscn" type="PackedScene" id=5]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="RoadGraph" parent="." instance=ExtResource( 1 )]
+editor/display_folded = true
+
+[node name="RoadGraphConnection" parent="RoadGraph/RoadGraphConnections" index="0" instance=ExtResource( 2 )]
+node_a = NodePath("../../RoadGraphNodes/RoadGraphNode")
+node_b = NodePath("../../RoadGraphNodes/RoadGraphNode2")
+
+[node name="RoadGraphConnection2" parent="RoadGraph/RoadGraphConnections" index="1" instance=ExtResource( 2 )]
+node_a = NodePath("../../RoadGraphNodes/RoadGraphNode2")
+node_b = NodePath("../../RoadGraphNodes/RoadGraphNode3")
+
+[node name="RoadGraphConnection3" parent="RoadGraph/RoadGraphConnections" index="2" instance=ExtResource( 2 )]
+node_a = NodePath("../../RoadGraphNodes/RoadGraphNode2")
+node_b = NodePath("../../RoadGraphNodes/RoadGraphNode4")
+
+[node name="RoadGraphConnection4" parent="RoadGraph/RoadGraphConnections" index="3" instance=ExtResource( 2 )]
+node_a = NodePath("../../RoadGraphNodes/RoadGraphNode4")
+node_b = NodePath("../../RoadGraphNodes/RoadGraphNode5")
+
+[node name="RoadGraphConnection5" parent="RoadGraph/RoadGraphConnections" index="4" instance=ExtResource( 2 )]
+node_a = NodePath("../../RoadGraphNodes/RoadGraphNode5")
+node_b = NodePath("../../RoadGraphNodes/RoadGraphNode")
+
+[node name="RoadGraphConnection6" parent="RoadGraph/RoadGraphConnections" index="5" instance=ExtResource( 2 )]
+node_a = NodePath("../../RoadGraphNodes/RoadGraphNode5")
+node_b = NodePath("../../RoadGraphNodes/RoadGraphNode3")
+
+[node name="RoadGraphConnection7" parent="RoadGraph/RoadGraphConnections" index="6" instance=ExtResource( 2 )]
+node_a = NodePath("../../RoadGraphNodes/RoadGraphNode3")
+node_b = NodePath("../../RoadGraphNodes/RoadGraphNode4")
+
+[node name="RoadGraphConnection8" parent="RoadGraph/RoadGraphConnections" index="7" instance=ExtResource( 2 )]
+node_a = NodePath("../../RoadGraphNodes/RoadGraphNode3")
+node_b = NodePath("../../RoadGraphNodes/RoadGraphNode")
+
+[node name="RoadGraphConnection9" parent="RoadGraph/RoadGraphConnections" index="8" instance=ExtResource( 2 )]
+node_a = NodePath("../../RoadGraphNodes/RoadGraphNode3")
+node_b = NodePath("../../RoadGraphNodes/RoadGraphNode6")
+
+[node name="RoadGraphConnection10" parent="RoadGraph/RoadGraphConnections" index="9" instance=ExtResource( 2 )]
+node_a = NodePath("../../RoadGraphNodes/RoadGraphNode6")
+node_b = NodePath("../../RoadGraphNodes/RoadGraphNode")
+
+[node name="RoadGraphConnection11" parent="RoadGraph/RoadGraphConnections" index="10" instance=ExtResource( 2 )]
+node_a = NodePath("../../RoadGraphNodes/RoadGraphNode6")
+node_b = NodePath("../../RoadGraphNodes/RoadGraphNode2")
+
+[node name="RoadGraphNode" parent="RoadGraph/RoadGraphNodes" index="0" instance=ExtResource( 3 )]
+position = Vector2( 235.006, 125.911 )
+
+[node name="RoadGraphNode2" parent="RoadGraph/RoadGraphNodes" index="1" instance=ExtResource( 3 )]
+position = Vector2( 805.947, 136.463 )
+
+[node name="RoadGraphNode3" parent="RoadGraph/RoadGraphNodes" index="2" instance=ExtResource( 3 )]
+position = Vector2( 554.016, 286.922 )
+
+[node name="RoadGraphNode4" parent="RoadGraph/RoadGraphNodes" index="3" instance=ExtResource( 3 )]
+position = Vector2( 809.446, 444.379 )
+
+[node name="RoadGraphNode5" parent="RoadGraph/RoadGraphNodes" index="4" instance=ExtResource( 3 )]
+position = Vector2( 296.252, 437.381 )
+
+[node name="RoadGraphNode6" parent="RoadGraph/RoadGraphNodes" index="5" instance=ExtResource( 3 )]
+position = Vector2( 550.516, 195.947 )
+
+[node name="Car" parent="." instance=ExtResource( 4 )]
+road_graph = NodePath("../RoadGraph")
+target_graph_node = NodePath("../RoadGraph/RoadGraphNodes/RoadGraphNode")
+
+[node name="PlayerCar" parent="." instance=ExtResource( 5 )]
+position = Vector2( 0, 480.044 )
+road_graph = NodePath("../RoadGraph")
+target_graph_node = NodePath("../RoadGraph/RoadGraphNodes/RoadGraphNode4")
+
+[editable path="RoadGraph"]

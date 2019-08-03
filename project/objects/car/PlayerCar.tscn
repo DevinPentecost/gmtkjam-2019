@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://objects/car/Car.tscn" type="PackedScene" id=1]
+[ext_resource path="res://objects/car/PlayerCar.gd" type="Script" id=2]
+
+[node name="PlayerCar" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+speed = 125.0
+
+[node name="Sprite" parent="." index="1"]
+self_modulate = Color( 0.227451, 0.8, 1, 1 )
