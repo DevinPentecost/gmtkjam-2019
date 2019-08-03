@@ -29,11 +29,11 @@ func _process(delta):
 func pick_next_destination():
 	
 	#Try going straight
-	var connection = _road_graph.get_connection_for_direction(current_direction, _target_graph_node, null, 1)
+	target_path = _road_graph.get_connection_for_direction(current_direction, _target_graph_node, null, 1)
 	
 	#Did we find a good path for the desired direction?
-	if connection:
-		var destination = connection[1]
+	if target_path:
+		var destination = target_path[1]
 		set_next_destination(destination)
 	else:
 		#Pick a random one (call super)
@@ -51,10 +51,10 @@ func _unhandled_key_input(event):
 
 func _set_next_direction(direction, threshold=0.5):
 	#Search for one
-	var connection = _road_graph.get_connection_for_direction(current_direction, _target_graph_node, direction, threshold)
+	target_path = _road_graph.get_connection_for_direction(current_direction, _target_graph_node, direction, threshold)
 	
 	#Did we find a good path for the desired direction?
-	if connection:
-		var destination = connection[1]
+	if target_path:
+		var destination = target_path[1]
 		set_next_destination(destination)
 	
