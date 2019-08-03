@@ -37,6 +37,8 @@ func _process_next_message():
 	
 	tween_vertical_pos.interpolate_property($texture_all_elements, 'rect_position', Vector2(0, 640), Vector2(0, 390), 1.33, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
 	tween_text_visible.interpolate_property($texture_all_elements/texture_text_container/texture_text_border/richtext_message, 'percent_visible', 0, 1, 2.66, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	tween_vertical_pos.start()
+	tween_text_visible.start()
 	
 	tween_vertical_pos.set_active(true)
 	tween_text_visible.set_active(true)

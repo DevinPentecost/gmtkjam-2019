@@ -1,24 +1,42 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://objects/passenger/PassengerController.gd" type="Script" id=1]
 [ext_resource path="res://objects/passenger/Pin.tscn" type="PackedScene" id=2]
-[ext_resource path="res://objects/passenger/pin.png" type="Texture" id=3]
-[ext_resource path="res://objects/passenger/Passenger.tscn" type="PackedScene" id=4]
-[ext_resource path="res://objects/passenger/PinPointer.tscn" type="PackedScene" id=5]
+[ext_resource path="res://2d_resources/tiles/pickup.png" type="Texture" id=3]
+[ext_resource path="res://2d_resources/tiles/destination.png" type="Texture" id=4]
+[ext_resource path="res://objects/passenger/Passenger.tscn" type="PackedScene" id=5]
+[ext_resource path="res://objects/passenger/textures/dog1a.png" type="Texture" id=6]
+[ext_resource path="res://objects/passenger/textures/dog2a.png" type="Texture" id=7]
+[ext_resource path="res://objects/passenger/textures/dog3a.png" type="Texture" id=8]
+[ext_resource path="res://objects/passenger/textures/dog4a.png" type="Texture" id=9]
+[ext_resource path="res://objects/passenger/textures/dog1b.png" type="Texture" id=10]
+[ext_resource path="res://objects/passenger/textures/dog2b.png" type="Texture" id=11]
+[ext_resource path="res://objects/passenger/textures/dog3b.png" type="Texture" id=12]
+[ext_resource path="res://objects/passenger/textures/dog4b.png" type="Texture" id=13]
+[ext_resource path="res://objects/passenger/PinPointer.tscn" type="PackedScene" id=14]
 
 [node name="PassengerController" type="Node"]
 script = ExtResource( 1 )
 
 [node name="SourcePin" parent="." instance=ExtResource( 2 )]
 
+[node name="Sprite" parent="SourcePin" index="1"]
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 3 )
+offset = Vector2( 0, -225 )
+
 [node name="DestinationPin" parent="." instance=ExtResource( 2 )]
 
 [node name="Sprite" parent="DestinationPin" index="1"]
-texture = ExtResource( 3 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 4 )
+offset = Vector2( 0, -115 )
 
-[node name="Passenger" parent="." instance=ExtResource( 4 )]
+[node name="Passenger" parent="." instance=ExtResource( 5 )]
+normal_textures = [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ]
+impatient_textures = [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ) ]
 
-[node name="PinPointer" parent="." instance=ExtResource( 5 )]
+[node name="PinPointer" parent="." instance=ExtResource( 14 )]
 [connection signal="pin_reached" from="SourcePin" to="." method="_on_SourcePin_pin_reached"]
 [connection signal="pin_reached" from="DestinationPin" to="." method="_on_DestinationPin_pin_reached"]
 [connection signal="passenger_impatient" from="Passenger" to="." method="_on_Passenger_passenger_impatient"]

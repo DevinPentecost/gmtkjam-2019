@@ -19,7 +19,9 @@ extra_spacing_char = 1
 extra_spacing_space = 2
 font_data = SubResource( 1 )
 
-[node name="passenger_message" type="Node2D"]
+[node name="passenger_message" type="Node2D" groups=[
+"message_gui",
+]]
 script = ExtResource( 1 )
 
 [node name="texture_all_elements" type="TextureRect" parent="."]
@@ -72,11 +74,15 @@ texture = ExtResource( 4 )
 
 [node name="texture_portrait" type="TextureRect" parent="texture_all_elements/texture_portrait_border"]
 show_behind_parent = true
-margin_right = 125.0
-margin_bottom = 200.0
+margin_left = -8.0
+margin_top = -10.0
+margin_right = 117.0
+margin_bottom = 190.0
 rect_min_size = Vector2( 125, 200 )
+rect_scale = Vector2( 0.14, 0.2 )
 rect_clip_content = true
 texture = ExtResource( 5 )
+stretch_mode = 4
 
 [node name="tween_vertical_pos" type="Tween" parent="texture_all_elements"]
 

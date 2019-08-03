@@ -13,6 +13,12 @@ var bonus_time = 5.0
 var _source = null
 var _destination = null
 
+#Visuals
+export(Array, Texture) var normal_textures = []
+export(Array, Texture) var impatient_textures = []
+var normal_texture = null
+var impatient_texture = null
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	set_process(true)
@@ -38,13 +44,27 @@ func refresh(source_landmark, destination_landmark):
 	current_score = base_score
 	
 	#Adjust score based on distance?
-	pass
+	
+	#Pick new textures
+	var texture_index = randi() % normal_textures.size()
+	normal_texture = normal_textures[texture_index]
+	impatient_texture = impatient_textures[texture_index]
 
-func get_pickup_quote():
-	return "Hi I would like to go to the " + _destination.landmark_name
+func get_pickup_message():
+	return {
+		"portrait_texture": normal_texture,
+		"text_message": "Hi I would like to go to the " + _destination.landmark_name
+	}
 
-func get_dropoff_quote():
-	return "Thanks for dropping me off here is " + current_score
+func get_dropoff_message():
+	return {
+		"portrait_texture": normal_texture,
+		"text_message": "Thanks for dropping me off here is " + str(current_score)
+	}
 
-func get_impatient_quote():
-	return "Please hurry and get me to " + _destination.landmark_name
+func get_impatient_message():
+	return {
+		"portrait_texture": impatient_texture,
+		"text_message": "Please hurry and get me to " + _destination.landmark_name
+	}
+

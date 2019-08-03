@@ -203,20 +203,19 @@ road_graph = NodePath("../RoadGraph")
 target_graph_node = NodePath("../RoadGraph/RoadGraphNodes/RoadGraphNode")
 
 [node name="Landmarks" parent="." instance=ExtResource( 8 )]
-editor/display_folded = true
 
 [node name="Landmark" parent="Landmarks/Sources" index="0" instance=ExtResource( 9 )]
-position = Vector2( -258.752, 377.34 )
+position = Vector2( 155.087, 49.419 )
 
 [node name="Landmark2" parent="Landmarks/Sources" index="1" instance=ExtResource( 9 )]
-position = Vector2( 895.375, 382.015 )
+position = Vector2( -117.653, 184.547 )
 
 [node name="Landmark" parent="Landmarks/Destinations" index="0" instance=ExtResource( 9 )]
-position = Vector2( 57.702, 88.2116 )
+position = Vector2( 525.568, 113.249 )
 landmark_name = "POOL"
 
 [node name="Landmark2" parent="Landmarks/Destinations" index="1" instance=ExtResource( 9 )]
-position = Vector2( 260.769, 704.721 )
+position = Vector2( -27.0568, 299.474 )
 landmark_name = "GARDEN"
 
 [node name="PassengerController" parent="." instance=ExtResource( 10 )]
@@ -240,3 +239,5 @@ player = NodePath("../../PlayerCar")
 [editable path="Landmarks"]
 
 [editable path="PassengerController"]
+
+[editable path="MainGUI"]
