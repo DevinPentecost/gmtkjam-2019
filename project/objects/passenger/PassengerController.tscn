@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://objects/passenger/PassengerController.gd" type="Script" id=1]
+[ext_resource path="res://objects/passenger/Pin.tscn" type="PackedScene" id=2]
+[ext_resource path="res://objects/passenger/pin.png" type="Texture" id=3]
+[ext_resource path="res://objects/passenger/Passenger.tscn" type="PackedScene" id=4]
+
+[node name="PassengerController" type="Node"]
+script = ExtResource( 1 )
+
+[node name="SourcePin" parent="." instance=ExtResource( 2 )]
+
+[node name="DestinationPin" parent="." instance=ExtResource( 2 )]
+
+[node name="Sprite" parent="DestinationPin" index="1"]
+texture = ExtResource( 3 )
+
+[node name="Passenger" parent="." instance=ExtResource( 4 )]
+[connection signal="pin_reached" from="SourcePin" to="." method="_on_SourcePin_pin_reached"]
+[connection signal="pin_reached" from="DestinationPin" to="." method="_on_DestinationPin_pin_reached"]
+[connection signal="passenger_impatient" from="Passenger" to="." method="_on_Passenger_passenger_impatient"]
+
+[editable path="SourcePin"]
+
+[editable path="DestinationPin"]

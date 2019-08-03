@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 
 [node name="Car" type="Area2D" groups=[
-"traffic",
+"car",
 ]]
 script = ExtResource( 1 )
 
@@ -35,4 +35,9 @@ texture = ExtResource( 2 )
 wait_time = 0.25
 
 [node name="BlinkerAudio" type="AudioStreamPlayer2D" parent="."]
+
+[node name="FlashTimer" type="Timer" parent="."]
+wait_time = 0.33
+one_shot = true
+[connection signal="area_entered" from="." to="." method="_on_Car_area_entered"]
 [connection signal="timeout" from="BlinkerTimer" to="." method="_on_BlinkerTimer_timeout"]

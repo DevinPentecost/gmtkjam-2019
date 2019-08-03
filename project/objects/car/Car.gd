@@ -22,6 +22,9 @@ var current_direction = null
 #Animating the blinker
 var blink_on = false
 
+#Flashing for invluln
+var flashing = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
@@ -98,3 +101,29 @@ func _show_blinker(blinker, on=false):
 	
 	var target_blinker = $Sprite/LeftBlinker if not blinker else $Sprite/RightBlinker
 	target_blinker.visible = on
+
+
+func _on_Car_area_entered(area):
+	
+	#So what did we hit?
+	if area.is_in_group("player"):
+		#Ouchie!
+		take_hit()
+
+func take_hit():
+	#Start flashing, we're just a regular car
+	flash()
+	
+func flash():
+	#Start flashing
+	if flashing:
+		return
+	flashing = true
+	
+	for flash in 6:
+		$Sprite.visible = !$Sprite.visible
+		$FlashTimer.start()
+		yield($FlashTimer, "timeout")
+	
+	#Done
+	flashing = false
