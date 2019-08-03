@@ -17,7 +17,7 @@ func _build_connections():
 			#Is A the start or not?
 			var source_node = connection_node._node_a
 			var destination_node = connection_node._node_b
-			if connection_node.a_to_b:
+			if not connection_node.a_to_b:
 					source_node = connection_node._node_b
 					destination_node = connection_node._node_a
 			
