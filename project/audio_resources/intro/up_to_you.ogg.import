@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/up_to_you.ogg-98998f13a3de35a4777729e842fdf41f.oggstr"
+
+[deps]
+
+source_file="res://audio_resources/intro/up_to_you.ogg"
+dest_files=[ "res://.import/up_to_you.ogg-98998f13a3de35a4777729e842fdf41f.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0
