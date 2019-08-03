@@ -6,8 +6,26 @@ signal pin_reached
 var height_offset = 100.0
 var tween_time = 1.0
 var target_position = Vector2(0, 0)
+var _showing = false
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	#Set up screen notifiers on the pin
+	var _screen_notifier = VisibilityNotifier2D.new()
+	add_child(_screen_notifier)
+	_screen_notifier.connect("screen_entered", self, "screen_entered")
+	_screen_notifier.connect("screen_exited", self, "screen_exited")
+
+func screen_entered():
+	if _showing:
+		print("im on the screen, remove pointer")
+
+func screen_exited():
+	if _showing:
+		print("im off the screen, show pointer")
 
 func set_showing(showing=true):
+	_showing = showing
 	
 	#Tween in/out and stuff
 	var target_y = target_position.y if showing else target_position.y - height_offset
