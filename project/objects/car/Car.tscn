@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://objects/car/Car.gd" type="Script" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://objects/car/player_ne.png" type="Texture" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -15,6 +16,7 @@ shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 self_modulate = Color( 1, 0.52549, 0.52549, 1 )
+scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 2 )
 
 [node name="LeftBlinker" type="Sprite" parent="Sprite"]
@@ -22,14 +24,14 @@ visible = false
 self_modulate = Color( 1, 1, 0, 1 )
 position = Vector2( 19.7329, -22.7519 )
 scale = Vector2( 0.205268, 0.205268 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 
 [node name="RightBlinker" type="Sprite" parent="Sprite"]
 visible = false
 self_modulate = Color( 1, 1, 0, 1 )
 position = Vector2( 19.1595, 16.1154 )
 scale = Vector2( 0.205268, 0.205268 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 
 [node name="BlinkerTimer" type="Timer" parent="."]
 wait_time = 0.25
