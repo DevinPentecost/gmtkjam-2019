@@ -8,7 +8,6 @@
 "player",
 ] instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-speed = 125.0
 
 [node name="PlayerCamera" parent="." index="0" instance=ExtResource( 3 )]
 

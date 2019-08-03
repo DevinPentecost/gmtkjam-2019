@@ -55,6 +55,7 @@ func build_from_game_map(game_map):
 			var final_position = game_map.map_to_world(cell_position) / 4
 			final_position.y += 64
 			new_node.position = final_position
+			new_node.grid_pos = cell_position
 			$RoadGraphNodes.add_child(new_node)
 			
 			#Store it for later
@@ -96,10 +97,18 @@ func build_from_game_map(game_map):
 					new_connection._node_a = intersection_cells[intersection_cell]
 					new_connection._node_b = target_cell
 					$RoadGraphConnections.add_child(new_connection)
-					
+	
+	_build_connections()
+	
+	#Check for dead ends
+	for node in $RoadGraphNodes.get_children():
+		if not connection_map.has(node):
+			print("UH OH, DEAD END! FIX THE MAP! ", node)
+	
 func _build_connections():
 	
 	#Go through each connection
+	connection_map.clear()
 	for connection_node in $RoadGraphConnections.get_children():
 		
 		#Is this connection 'complete'
@@ -117,13 +126,17 @@ func _build_connections():
 				connection_map[source_node] = []
 			connection_map[source_node].append([connection_node, destination_node])
 
+
 func get_random_connection(source_node):
 	"""
 	Returns a random path, which is a [RoadGraphConnection, RoadGraphNode] tuple
 	"""
 	
 	#How many destinations?
-	var paths = connection_map[source_node]
+	var paths = connection_map.get(source_node)
+	if paths == null:
+		print("NO WHERE TO GO?!?!?!?")
+		
 	
 	#Get one at random
 	var path_index = randi() % paths.size()
@@ -220,3 +233,7 @@ func get_connection_for_direction(current_position, source_node, direction, thre
 			return path_rightmost
 		false:
 			return path_leftmost
+
+func get_random_node():
+	var node_index = randi() % $RoadGraphNodes.get_child_count()
+	return $RoadGraphNodes.get_child(node_index)

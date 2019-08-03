@@ -1,24 +1,21 @@
 extends Area2D
 class_name Car
 
-export(NodePath) var road_graph = null
-onready var _road_graph = get_node(road_graph)
-
-#The current direction to go
-export(NodePath) var target_graph_node = null
-onready var _target_graph_node = get_node(target_graph_node)
+#Roads and destination
+var _road_graph = null
+var _target_graph_node = null
 
 #Where we're going to next after we reach the end
 var next_graph_node = null
 var turn_direction = null #False for Left, True for Right, Null for Forward/NA
-var turn_distance_start = 10000 #How far away to pick a new direction (Squared)
+var turn_distance_start = 40000 #How far away to pick a new direction (Squared)
 var min_turn_threshold = 0.5 #Radians of turn to need a signal
 
 var target_path = null
 
 #How fast a car goes
-export(float) var speed = 100
-var _close_enough_threshold = 10
+export(float) var speed = 300
+var _close_enough_threshold = 30
 var current_direction = null
 
 #Animating the blinker
@@ -40,15 +37,15 @@ func _physics_process(delta):
 	movement_vector *= delta
 	position += movement_vector
 	
-	#Are we 'close enough'?
-	if global_position.distance_squared_to(_target_graph_node.global_position) <= _close_enough_threshold:
-		global_position = _target_graph_node.global_position
-		next_destination()
-	
 	#Should we pick a new destination?
 	if next_graph_node == null and global_position.distance_squared_to(_target_graph_node.global_position) <= turn_distance_start:
 		#Pick a new destination
 		pick_next_destination()
+	
+	#Are we 'close enough'?
+	if global_position.distance_squared_to(_target_graph_node.global_position) <= _close_enough_threshold:
+		global_position = _target_graph_node.global_position
+		next_destination()
 	
 	#Point towards it
 	var towards_rotation = _target_graph_node.global_position.angle_to_point(global_position)

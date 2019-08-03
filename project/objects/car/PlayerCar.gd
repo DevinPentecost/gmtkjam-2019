@@ -1,12 +1,12 @@
 extends Car
 
 #Player gradually speeds up
-var min_speed = 75
-var accelleration = 0.50
-var max_speed = 250
+var min_speed = 0.85 * speed
+var max_speed = 2.5 * speed
+var accelleration = (max_speed - speed) / 120
 
 #Camera zoom based on speed
-var speed_camera_zoom = [Vector2(min_speed, max_speed), Vector2(0.75, 2.25)] #Speed vs camera lerps
+var speed_camera_zoom = [Vector2(min_speed, max_speed), Vector2(1.25, 2.25)] #Speed vs camera lerps
 
 
 # Called when the node enters the scene tree for the first time.

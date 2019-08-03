@@ -3,6 +3,8 @@ extends Area2D
 
 signal selected(selected)
 
+var grid_pos = null
+
 #Selection
 var selected = false setget set_selected
 var _wait_for_release = false
