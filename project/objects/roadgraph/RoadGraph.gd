@@ -62,7 +62,7 @@ func get_random_connection(source_node):
 	var path = paths[path_index]
 	return path
 
-func get_connection_for_direction(current_direction, source_node, direction, threshold=0.2):
+func get_connection_for_direction(current_position, source_node, direction, threshold=0.2):
 	"""
 	Find the 'best' match, or null, for the given direction
 	Compared against the current, normalized direction vector
@@ -80,11 +80,14 @@ func get_connection_for_direction(current_direction, source_node, direction, thr
 	
 	var angle_leftmost = 0
 	var angle_rightmost = 0
-	var angle_straightmost = 0
-	
-	print("New check")
-	print("Current direction is " + String(current_direction.angle()))
-	
+
+	var closeness_leftmost = 0
+	var closeness_rightmost = 0
+	var closeness_straightmost = 0
+
+	# How is the character moving right now?
+	var current_angle = current_position.direction_to(source_node.position).angle()
+		
 	#Check all directions
 	for path in available_paths:
 		
@@ -92,54 +95,60 @@ func get_connection_for_direction(current_direction, source_node, direction, thr
 		var path_connection = path[0]
 		var path_source = path_connection.get_source_node()
 		var path_destination = path_connection.get_destination_node()
-		var path_direction = path_destination.position.direction_to(path_source.position)
+		var path_direction = path_source.position.direction_to(path_destination.position)
 		
 		# We know the direction of this path. How does it compare to the current direction?
-		var turn_angle = path_direction - current_direction
-		
-		var angle_to_path = turn_angle.angle()
-		#angle_to_path = fmod(angle_to_path, PI)
-		
-		
-		print("Angle options is " + String(angle_to_path))
+		var turn_angle = path_direction.angle()
 		
 		# Which bucket does this path fit in?
-		
-		# If a path is null lets just fill it
+		# If a path option is null just fill it
 		if path_leftmost == null:
 			path_leftmost = path
-			angle_leftmost = angle_to_path
+			angle_leftmost = turn_angle
+			closeness_leftmost = abs(abs(current_angle) - abs(turn_angle))
 		if path_rightmost == null:
 			path_rightmost = path
-			angle_rightmost = angle_to_path
+			angle_rightmost = turn_angle
+			closeness_rightmost = abs(abs(current_angle) - abs(turn_angle))
 		if path_straightmost == null:
 			path_straightmost = path
-			angle_straightmost = angle_to_path
+			closeness_straightmost = abs(abs(current_angle) - abs(turn_angle))
 		
 		# Is this our new rightmost?
-		if angle_to_path > angle_rightmost:
+		if turn_angle > angle_rightmost:
+			# Is the old one our new straight?
+			if closeness_rightmost < closeness_straightmost:
+				path_straightmost = path_rightmost
+				closeness_straightmost = closeness_rightmost
+			
 			# This is the new rightmost
-			path_straightmost = path_rightmost
-			angle_straightmost = angle_rightmost
 			path_rightmost = path
-			angle_rightmost = angle_to_path
+			angle_rightmost = turn_angle
+			closeness_rightmost = abs(abs(current_angle) - abs(angle_rightmost))
 		
 		# What about leftmost?
-		if angle_to_path < angle_leftmost:
+		if turn_angle < angle_leftmost:
+			# Is the old one our new straight?
+			if closeness_leftmost < closeness_straightmost:
+				path_straightmost = path_leftmost
+				closeness_straightmost = closeness_leftmost
+			
 			# This is the new leftmost
-			path_straightmost = path_leftmost
-			angle_straightmost = angle_leftmost
 			path_leftmost = path
-			angle_leftmost = angle_to_path
+			angle_leftmost = turn_angle
+			closeness_leftmost = abs(abs(current_angle) - abs(angle_leftmost))
+		
+		# Is this actually our new straight??
+		var new_path_closeness = abs(abs(current_angle) - abs(turn_angle))
+		if new_path_closeness < closeness_straightmost:
+			path_straightmost = path
+			closeness_straightmost = new_path_closeness
 		
 	# Now all we have to do is select 
 	match direction:
 		null:
-			print("CHOOSING STRAIGHT: " + String(angle_straightmost))
 			return path_straightmost
 		true:
-			print("CHOOSING RIGHT: " + String(angle_rightmost))
 			return path_rightmost
 		false:
-			print("CHOOSING LEFT: " + String(angle_leftmost))
 			return path_leftmost
