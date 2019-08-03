@@ -14,6 +14,8 @@ var turn_direction = null #False for Left, True for Right, Null for Forward/NA
 var turn_distance_start = 40000 #How far away to pick a new direction (Squared)
 var min_turn_threshold = 0.5 #Radians of turn to need a signal
 
+var target_path = null
+
 #How fast a car goes
 export(float) var speed = 100
 var _close_enough_threshold = 10
@@ -65,8 +67,8 @@ func next_destination():
 
 func pick_next_destination():
 	#Ask for a new connection
-	var new_connection = _road_graph.get_random_connection(_target_graph_node)
-	set_next_destination(new_connection[1])
+	target_path = _road_graph.get_random_connection(_target_graph_node)
+	set_next_destination(target_path[1])
 	
 	
 

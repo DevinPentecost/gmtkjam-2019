@@ -2,9 +2,30 @@ extends Node2D
 
 var connection_map = {}
 
+# Debug stuff
+var obstacle_path = null
+var player_path = null
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_build_connections()
+
+func _process(delta):
+	# Every step we will check what the cars are trying to do
+	# We will turn the node they selected a different color
+	var new_obstacle_path = get_node("../Car").target_path
+	var new_player_path = get_node("../PlayerCar").target_path
+	
+	if new_obstacle_path != obstacle_path:
+		if obstacle_path != null:
+			obstacle_path[0].modulate = Color(1, 1, 1, 1)
+		obstacle_path = new_obstacle_path
+		obstacle_path[0].modulate = Color(1, 0, 0, 1)
+	if new_player_path != player_path:
+		if player_path != null:
+			player_path[0].modulate = Color(1, 1, 1, 1)
+		player_path = new_player_path
+		player_path[0].modulate = Color(0, 1, 0, 1)
 	
 func _build_connections():
 	
