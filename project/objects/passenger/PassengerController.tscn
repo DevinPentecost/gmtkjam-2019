@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://objects/passenger/PassengerController.gd" type="Script" id=1]
 [ext_resource path="res://objects/passenger/Pin.tscn" type="PackedScene" id=2]
 [ext_resource path="res://objects/passenger/pin.png" type="Texture" id=3]
 [ext_resource path="res://objects/passenger/Passenger.tscn" type="PackedScene" id=4]
+[ext_resource path="res://objects/passenger/PinPointer.tscn" type="PackedScene" id=5]
 
 [node name="PassengerController" type="Node"]
 script = ExtResource( 1 )
@@ -16,6 +17,8 @@ script = ExtResource( 1 )
 texture = ExtResource( 3 )
 
 [node name="Passenger" parent="." instance=ExtResource( 4 )]
+
+[node name="PinPointer" parent="." instance=ExtResource( 5 )]
 [connection signal="pin_reached" from="SourcePin" to="." method="_on_SourcePin_pin_reached"]
 [connection signal="pin_reached" from="DestinationPin" to="." method="_on_DestinationPin_pin_reached"]
 [connection signal="passenger_impatient" from="Passenger" to="." method="_on_Passenger_passenger_impatient"]

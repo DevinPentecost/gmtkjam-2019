@@ -12,7 +12,6 @@
 [node name="Node2D" type="Node2D"]
 
 [node name="RoadGraph" parent="." instance=ExtResource( 1 )]
-editor/display_folded = true
 
 [node name="RoadGraphConnection" parent="RoadGraph/RoadGraphConnections" index="0" instance=ExtResource( 2 )]
 node_a = NodePath("../../RoadGraphNodes/RoadGraphNode")
@@ -62,7 +61,7 @@ node_b = NodePath("../../RoadGraphNodes/RoadGraphNode2")
 position = Vector2( 235.006, 125.911 )
 
 [node name="RoadGraphNode2" parent="RoadGraph/RoadGraphNodes" index="1" instance=ExtResource( 3 )]
-position = Vector2( 805.947, 136.463 )
+position = Vector2( 1278.63, -129.956 )
 
 [node name="RoadGraphNode3" parent="RoadGraph/RoadGraphNodes" index="2" instance=ExtResource( 3 )]
 position = Vector2( 554.016, 286.922 )
@@ -90,10 +89,10 @@ target_graph_node = NodePath("../RoadGraph/RoadGraphNodes/RoadGraphNode4")
 [node name="Landmarks" parent="." instance=ExtResource( 6 )]
 
 [node name="Landmark" parent="Landmarks/Sources" index="0" instance=ExtResource( 7 )]
-position = Vector2( 259.052, 244.319 )
+position = Vector2( 723.317, 442.656 )
 
 [node name="Landmark2" parent="Landmarks/Sources" index="1" instance=ExtResource( 7 )]
-position = Vector2( 554.936, 132.595 )
+position = Vector2( 1153.27, -100.091 )
 
 [node name="Landmark" parent="Landmarks/Destinations" index="0" instance=ExtResource( 7 )]
 position = Vector2( 477.589, 248.002 )
@@ -106,6 +105,11 @@ landmark_name = "GARDEN"
 [node name="PassengerController" parent="." instance=ExtResource( 8 )]
 landmarks = NodePath("../Landmarks")
 
+[node name="PinPointer" parent="PassengerController" index="3"]
+player = NodePath("../../PlayerCar")
+
 [editable path="RoadGraph"]
 
 [editable path="Landmarks"]
+
+[editable path="PassengerController"]
