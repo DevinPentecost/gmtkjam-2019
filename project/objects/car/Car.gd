@@ -11,7 +11,7 @@ onready var _target_graph_node = get_node(target_graph_node)
 #Where we're going to next after we reach the end
 var next_graph_node = null
 var turn_direction = null #False for Left, True for Right, Null for Forward/NA
-var turn_distance_start = 40000 #How far away to pick a new direction (Squared)
+var turn_distance_start = 10000 #How far away to pick a new direction (Squared)
 var min_turn_threshold = 0.5 #Radians of turn to need a signal
 
 var target_path = null

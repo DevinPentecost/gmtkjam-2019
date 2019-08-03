@@ -29,7 +29,7 @@ func _process(delta):
 func pick_next_destination():
 	
 	#Try going straight
-	target_path = _road_graph.get_connection_for_direction(current_direction, _target_graph_node, null, 1)
+	target_path = _road_graph.get_connection_for_direction(global_position, _target_graph_node, null, 1)
 	
 	#Did we find a good path for the desired direction?
 	if target_path:
@@ -51,7 +51,7 @@ func _unhandled_key_input(event):
 
 func _set_next_direction(direction, threshold=0.5):
 	#Search for one
-	target_path = _road_graph.get_connection_for_direction(current_direction, _target_graph_node, direction, threshold)
+	target_path = _road_graph.get_connection_for_direction(global_position, _target_graph_node, direction, threshold)
 	
 	#Did we find a good path for the desired direction?
 	if target_path:
