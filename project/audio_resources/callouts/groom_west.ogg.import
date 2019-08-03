@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/groom_west.ogg-ba1c06895ff719b8b8e02efed5f87f63.oggstr"
+
+[deps]
+
+source_file="res://audio_resources/callouts/groom_west.ogg"
+dest_files=[ "res://.import/groom_west.ogg-ba1c06895ff719b8b8e02efed5f87f63.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0
