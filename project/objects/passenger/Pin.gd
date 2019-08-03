@@ -1,6 +1,8 @@
 extends Area2D
 
 signal pin_reached
+signal pin_offscreen
+signal pin_onscreen
 
 #Tweening stuff
 var height_offset = 100.0
@@ -18,15 +20,17 @@ func _ready():
 
 func screen_entered():
 	if _showing:
+		emit_signal("pin_onscreen")
 		print("im on the screen, remove pointer")
 
 func screen_exited():
 	if _showing:
+		emit_signal("pin_offscreen")
 		print("im off the screen, show pointer")
 
 func set_showing(showing=true):
 	_showing = showing
-	
+
 	#Tween in/out and stuff
 	var target_y = target_position.y if showing else target_position.y - height_offset
 	var target_color = modulate
@@ -34,22 +38,22 @@ func set_showing(showing=true):
 	$Tween.interpolate_property(self, "global_position:y", global_position.y, target_y, tween_time, Tween.TRANS_QUAD, Tween.EASE_OUT)
 	$Tween.interpolate_property(self, "modulate", modulate, target_color, tween_time, Tween.TRANS_QUAD, Tween.EASE_OUT)
 	$Tween.start()
-	
+
 	#Enable/disabe the collision
 	$CollisionShape2D.set_deferred("disabled", !showing)
-	
+
 
 func move_to_landmark(target_landmark):
-	
+
 	#Simply take it's position
 	target_position = target_landmark.global_position
 	global_position = target_landmark.global_position
 	position.y -= height_offset
 
 func _on_Pin_area_entered(area):
-	
+
 	#Did we connect with the player?
 	if area.is_in_group("player"):
-		
+
 		#We must have reached the destination!
 		emit_signal("pin_reached")
