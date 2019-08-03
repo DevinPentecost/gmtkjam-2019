@@ -33,102 +33,127 @@ editor/display_folded = true
 [node name="RoadGraphConnection" parent="RoadGraph/RoadGraphConnections" index="0" instance=ExtResource( 4 )]
 node_a = NodePath("../../RoadGraphNodes/RoadGraphNode")
 node_b = NodePath("../../RoadGraphNodes/RoadGraphNode2")
+a_to_b = true
 
 [node name="RoadGraphConnection2" parent="RoadGraph/RoadGraphConnections" index="1" instance=ExtResource( 4 )]
 node_a = NodePath("../../RoadGraphNodes/RoadGraphNode2")
 node_b = NodePath("../../RoadGraphNodes/RoadGraphNode3")
+a_to_b = true
 
 [node name="RoadGraphConnection3" parent="RoadGraph/RoadGraphConnections" index="2" instance=ExtResource( 4 )]
 node_a = NodePath("../../RoadGraphNodes/RoadGraphNode3")
 node_b = NodePath("../../RoadGraphNodes/RoadGraphNode4")
+a_to_b = true
 
 [node name="RoadGraphConnection4" parent="RoadGraph/RoadGraphConnections" index="3" instance=ExtResource( 4 )]
 node_a = NodePath("../../RoadGraphNodes/RoadGraphNode5")
 node_b = NodePath("../../RoadGraphNodes/RoadGraphNode4")
+a_to_b = true
 
 [node name="RoadGraphConnection5" parent="RoadGraph/RoadGraphConnections" index="4" instance=ExtResource( 4 )]
 node_a = NodePath("../../RoadGraphNodes/RoadGraphNode6")
 node_b = NodePath("../../RoadGraphNodes/RoadGraphNode5")
+a_to_b = true
 
 [node name="RoadGraphConnection6" parent="RoadGraph/RoadGraphConnections" index="5" instance=ExtResource( 4 )]
 node_a = NodePath("../../RoadGraphNodes/RoadGraphNode7")
 node_b = NodePath("../../RoadGraphNodes/RoadGraphNode6")
+a_to_b = true
 
 [node name="RoadGraphConnection7" parent="RoadGraph/RoadGraphConnections" index="6" instance=ExtResource( 4 )]
 node_a = NodePath("../../RoadGraphNodes/RoadGraphNode4")
 node_b = NodePath("../../RoadGraphNodes/RoadGraphNode20")
+a_to_b = true
 
 [node name="RoadGraphConnection8" parent="RoadGraph/RoadGraphConnections" index="7" instance=ExtResource( 4 )]
 node_a = NodePath("../../RoadGraphNodes/RoadGraphNode20")
 node_b = NodePath("../../RoadGraphNodes/RoadGraphNode8")
+a_to_b = true
 
 [node name="RoadGraphConnection9" parent="RoadGraph/RoadGraphConnections" index="8" instance=ExtResource( 4 )]
 node_a = NodePath("../../RoadGraphNodes/RoadGraphNode8")
 node_b = NodePath("../../RoadGraphNodes/RoadGraphNode7")
+a_to_b = true
 
 [node name="RoadGraphConnection10" parent="RoadGraph/RoadGraphConnections" index="9" instance=ExtResource( 4 )]
 node_a = NodePath("../../RoadGraphNodes/RoadGraphNode8")
 node_b = NodePath("../../RoadGraphNodes/RoadGraphNode9")
+a_to_b = true
 
 [node name="RoadGraphConnection11" parent="RoadGraph/RoadGraphConnections" index="10" instance=ExtResource( 4 )]
 node_a = NodePath("../../RoadGraphNodes/RoadGraphNode7")
 node_b = NodePath("../../RoadGraphNodes/RoadGraphNode13")
+a_to_b = true
 
 [node name="RoadGraphConnection12" parent="RoadGraph/RoadGraphConnections" index="11" instance=ExtResource( 4 )]
 node_a = NodePath("../../RoadGraphNodes/RoadGraphNode13")
 node_b = NodePath("../../RoadGraphNodes/RoadGraphNode14")
+a_to_b = true
 
 [node name="RoadGraphConnection13" parent="RoadGraph/RoadGraphConnections" index="12" instance=ExtResource( 4 )]
 node_a = NodePath("../../RoadGraphNodes/RoadGraphNode14")
 node_b = NodePath("../../RoadGraphNodes/RoadGraphNode15")
+a_to_b = true
 
 [node name="RoadGraphConnection14" parent="RoadGraph/RoadGraphConnections" index="13" instance=ExtResource( 4 )]
 node_a = NodePath("../../RoadGraphNodes/RoadGraphNode15")
 node_b = NodePath("../../RoadGraphNodes/RoadGraphNode12")
+a_to_b = true
 
 [node name="RoadGraphConnection15" parent="RoadGraph/RoadGraphConnections" index="14" instance=ExtResource( 4 )]
 node_a = NodePath("../../RoadGraphNodes/RoadGraphNode13")
 node_b = NodePath("../../RoadGraphNodes/RoadGraphNode12")
+a_to_b = true
 
 [node name="RoadGraphConnection16" parent="RoadGraph/RoadGraphConnections" index="15" instance=ExtResource( 4 )]
 node_a = NodePath("../../RoadGraphNodes/RoadGraphNode9")
 node_b = NodePath("../../RoadGraphNodes/RoadGraphNode12")
+a_to_b = true
 
 [node name="RoadGraphConnection17" parent="RoadGraph/RoadGraphConnections" index="16" instance=ExtResource( 4 )]
 node_a = NodePath("../../RoadGraphNodes/RoadGraphNode15")
 node_b = NodePath("../../RoadGraphNodes/RoadGraphNode16")
+a_to_b = true
 
 [node name="RoadGraphConnection18" parent="RoadGraph/RoadGraphConnections" index="17" instance=ExtResource( 4 )]
 node_a = NodePath("../../RoadGraphNodes/RoadGraphNode16")
 node_b = NodePath("../../RoadGraphNodes/RoadGraphNode17")
+a_to_b = true
 
 [node name="RoadGraphConnection19" parent="RoadGraph/RoadGraphConnections" index="18" instance=ExtResource( 4 )]
 node_a = NodePath("../../RoadGraphNodes/RoadGraphNode17")
 node_b = NodePath("../../RoadGraphNodes/RoadGraphNode18")
+a_to_b = true
 
 [node name="RoadGraphConnection20" parent="RoadGraph/RoadGraphConnections" index="19" instance=ExtResource( 4 )]
 node_a = NodePath("../../RoadGraphNodes/RoadGraphNode18")
 node_b = NodePath("../../RoadGraphNodes/RoadGraphNode11")
+a_to_b = true
 
 [node name="RoadGraphConnection21" parent="RoadGraph/RoadGraphConnections" index="20" instance=ExtResource( 4 )]
 node_a = NodePath("../../RoadGraphNodes/RoadGraphNode12")
 node_b = NodePath("../../RoadGraphNodes/RoadGraphNode11")
+a_to_b = true
 
 [node name="RoadGraphConnection22" parent="RoadGraph/RoadGraphConnections" index="21" instance=ExtResource( 4 )]
 node_a = NodePath("../../RoadGraphNodes/RoadGraphNode11")
 node_b = NodePath("../../RoadGraphNodes/RoadGraphNode10")
+a_to_b = true
 
 [node name="RoadGraphConnection23" parent="RoadGraph/RoadGraphConnections" index="22" instance=ExtResource( 4 )]
 node_a = NodePath("../../RoadGraphNodes/RoadGraphNode11")
 node_b = NodePath("../../RoadGraphNodes/RoadGraphNode19")
+a_to_b = true
 
 [node name="RoadGraphConnection24" parent="RoadGraph/RoadGraphConnections" index="23" instance=ExtResource( 4 )]
 node_a = NodePath("../../RoadGraphNodes/RoadGraphNode10")
 node_b = NodePath("../../RoadGraphNodes/RoadGraphNode9")
+a_to_b = true
 
 [node name="RoadGraphConnection25" parent="RoadGraph/RoadGraphConnections" index="24" instance=ExtResource( 4 )]
 node_a = NodePath("../../RoadGraphNodes/RoadGraphNode19")
 node_b = NodePath("../../RoadGraphNodes/RoadGraphNode")
+a_to_b = true
 
 [node name="RoadGraphNode" parent="RoadGraph/RoadGraphNodes" index="0" instance=ExtResource( 5 )]
 position = Vector2( 320.222, -33.2411 )

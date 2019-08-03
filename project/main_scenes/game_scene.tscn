@@ -315,10 +315,10 @@ HELLO WELCOME TO THE GAME
 "
 
 [node name="slider_speed" type="VSlider" parent="."]
-margin_left = 946.0
-margin_top = 16.0
-margin_right = 1013.0
-margin_bottom = 201.0
+margin_left = 859.573
+margin_top = 25.9723
+margin_right = 926.573
+margin_bottom = 210.972
 tick_count = 100
 ticks_on_borders = true
 
