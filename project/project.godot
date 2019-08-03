@@ -54,4 +54,5 @@ player_turn_straight={
 
 [rendering]
 
+environment/default_clear_color=Color( 0.905882, 0.905882, 0.905882, 1 )
 environment/default_environment="res://default_env.tres"

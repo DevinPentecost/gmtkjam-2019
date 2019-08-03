@@ -234,6 +234,9 @@ func get_connection_for_direction(current_position, source_node, direction, thre
 		false:
 			return path_leftmost
 
+func get_graph_node(node_index):
+	return $RoadGraphNodes.get_child(node_index)
+
 func get_random_node():
 	var node_index = randi() % $RoadGraphNodes.get_child_count()
 	return $RoadGraphNodes.get_child(node_index)
