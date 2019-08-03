@@ -1,120 +1,250 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://objects/roadgraph/RoadGraph.tscn" type="PackedScene" id=1]
-[ext_resource path="res://objects/roadgraph/RoadGraphConnection.tscn" type="PackedScene" id=2]
-[ext_resource path="res://objects/roadgraph/RoadGraphNode.tscn" type="PackedScene" id=3]
-[ext_resource path="res://objects/car/Car.tscn" type="PackedScene" id=4]
-[ext_resource path="res://objects/car/PlayerCar.tscn" type="PackedScene" id=5]
-[ext_resource path="res://objects/landmarks/Landmarks.tscn" type="PackedScene" id=6]
-[ext_resource path="res://objects/landmarks/Landmark.tscn" type="PackedScene" id=7]
-[ext_resource path="res://objects/passenger/PassengerController.tscn" type="PackedScene" id=8]
+[ext_resource path="res://2d_resources/tiles/tileset_roads.tres" type="TileSet" id=1]
+[ext_resource path="res://objects/roadgraph/RoadGraph.tscn" type="PackedScene" id=2]
+[ext_resource path="res://objects/roadgraph/RoadGraphConnection.tscn" type="PackedScene" id=3]
+[ext_resource path="res://objects/roadgraph/RoadGraphNode.tscn" type="PackedScene" id=4]
+[ext_resource path="res://objects/car/Car.tscn" type="PackedScene" id=5]
+[ext_resource path="res://objects/car/PlayerCar.tscn" type="PackedScene" id=6]
+[ext_resource path="res://objects/landmarks/Landmarks.tscn" type="PackedScene" id=7]
+[ext_resource path="res://objects/landmarks/Landmark.tscn" type="PackedScene" id=8]
+[ext_resource path="res://objects/passenger/PassengerController.tscn" type="PackedScene" id=9]
 
 [node name="Node2D" type="Node2D"]
 
-[node name="RoadGraph" parent="." instance=ExtResource( 1 )]
+[node name="TileMap" type="TileMap" parent="."]
+position = Vector2( 0, -2 )
+scale = Vector2( 0.25, 0.25 )
+mode = 1
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 512, 256 )
+cell_quadrant_size = 128
+format = 1
+tile_data = PoolIntArray( -327680, 8, 0, -327679, 8, 0, -327678, 8, 0, -327677, 8, 0, -327676, 8, 0, -327675, 8, 0, -327674, 8, 0, -327673, 8, 0, -327672, 8, 0, -327671, 8, 0, -327670, 8, 0, -327669, 8, 0, -327668, 8, 0, -327667, 8, 0, -262144, 8, 0, -262143, 4, 0, -262142, 11, 0, -262141, 11, 0, -262140, 11, 0, -262139, 5, 0, -262138, 8, 0, -262137, 4, 0, -262136, 10, 0, -262135, 10, 0, -262134, 10, 0, -262133, 10, 0, -262132, 5, 0, -262131, 8, 0, -196608, 8, 0, -196607, 9, 0, -196606, 8, 0, -196605, 8, 0, -196604, 8, 0, -196603, 12, 0, -196602, 8, 0, -196601, 12, 0, -196600, 8, 0, -196599, 8, 0, -196598, 8, 0, -196597, 8, 0, -196596, 9, 0, -196595, 8, 0, -131072, 8, 0, -131071, 9, 0, -131070, 8, 0, -131069, 8, 0, -131068, 8, 0, -131067, 2, 0, -131066, 11, 0, -131065, 14, 0, -131064, 8, 0, -131063, 8, 0, -131062, 8, 0, -131061, 17, 0, -131060, 9, 0, -131059, 8, 0, -65536, 8, 0, -65535, 9, 0, -65534, 8, 0, -65533, 8, 0, -65532, 8, 0, -65531, 8, 0, -65530, 8, 0, -65529, 12, 0, -65528, 8, 0, -65527, 8, 0, -65526, 8, 0, -65525, 8, 0, -65524, 9, 0, -65523, 8, 0, 0, 8, 0, 1, 9, 0, 2, 0, 0, 3, 8, 0, 4, 8, 0, 5, 8, 0, 6, 8, 0, 7, 2, 0, 8, 11, 0, 9, 16, 0, 10, 11, 0, 11, 11, 0, 12, 14, 0, 13, 8, 0, 65536, 8, 0, 65537, 9, 0, 65538, 8, 0, 65539, 8, 0, 65540, 8, 0, 65541, 8, 0, 65542, 8, 0, 65543, 8, 0, 65544, 8, 0, 65545, 12, 0, 65546, 8, 0, 65547, 8, 0, 65548, 12, 0, 65549, 8, 0, 131072, 8, 0, 131073, 9, 0, 131074, 8, 0, 131075, 8, 0, 131076, 8, 0, 131077, 8, 0, 131078, 4, 0, 131079, 11, 0, 131080, 11, 0, 131081, 14, 0, 131082, 8, 0, 131083, 8, 0, 131084, 12, 0, 131085, 8, 0, 196608, 8, 0, 196609, 9, 0, 196610, 8, 0, 196611, 8, 0, 196612, 8, 0, 196613, 8, 0, 196614, 9, 0, 196615, 8, 0, 196616, 8, 0, 196617, 12, 0, 196618, 8, 0, 196619, 8, 0, 196620, 12, 0, 196621, 8, 0, 262144, 8, 0, 262145, 2, 0, 262146, 10, 0, 262147, 10, 0, 262148, 10, 0, 262149, 10, 0, 262150, 1, 0, 262151, 10, 0, 262152, 10, 0, 262153, 1, 0, 262154, 10, 0, 262155, 10, 0, 262156, 14, 0, 262157, 8, 0, 327680, 8, 0, 327681, 8, 0, 327682, 8, 0, 327683, 8, 0, 327684, 8, 0, 327685, 8, 0, 327686, 9, 0, 327687, 8, 0, 327688, 8, 0, 327689, 9, 0, 327690, 8, 0, 327691, 8, 0, 327692, 12, 0, 327693, 8, 0, 393216, 8, 0, 393217, 8, 0, 393218, 8, 0, 393219, 8, 0, 393220, 8, 0, 393221, 8, 0, 393222, 9, 0, 393223, 8, 0, 393224, 8, 0, 393225, 9, 0, 393226, 8, 0, 393227, 8, 0, 393228, 12, 0, 393229, 8, 0, 458752, 8, 0, 458753, 4, 0, 458754, 11, 0, 458755, 11, 0, 458756, 11, 0, 458757, 11, 0, 458758, 3, 0, 458759, 8, 0, 458760, 8, 0, 458761, 9, 0, 458762, 8, 0, 458763, 8, 0, 458764, 12, 0, 458765, 8, 0, 524288, 8, 0, 524289, 9, 0, 524290, 8, 0, 524291, 7, 0, 524292, 8, 0, 524293, 8, 0, 524294, 8, 0, 524295, 8, 0, 524296, 8, 0, 524297, 9, 0, 524298, 8, 0, 524299, 6, 0, 524300, 12, 0, 524301, 8, 0, 589824, 8, 0, 589825, 9, 0, 589826, 8, 0, 589827, 8, 0, 589828, 8, 0, 589829, 8, 0, 589830, 8, 0, 589831, 8, 0, 589832, 8, 0, 589833, 9, 0, 589834, 8, 0, 589835, 8, 0, 589836, 12, 0, 589837, 8, 0, 655360, 8, 0, 655361, 2, 0, 655362, 10, 0, 655363, 10, 0, 655364, 10, 0, 655365, 10, 0, 655366, 10, 0, 655367, 10, 0, 655368, 10, 0, 655369, 13, 0, 655370, 10, 0, 655371, 10, 0, 655372, 3, 0, 655373, 8, 0, 720896, 8, 0, 720897, 8, 0, 720898, 8, 0, 720899, 8, 0, 720900, 8, 0, 720901, 8, 0, 720902, 8, 0, 720903, 8, 0, 720904, 8, 0, 720905, 8, 0, 720906, 8, 0, 720907, 8, 0, 720908, 8, 0, 720909, 8, 0 )
 
-[node name="RoadGraphConnection" parent="RoadGraph/RoadGraphConnections" index="0" instance=ExtResource( 2 )]
+[node name="RoadGraph" parent="." instance=ExtResource( 2 )]
+
+[node name="RoadGraphConnection" parent="RoadGraph/RoadGraphConnections" index="0" instance=ExtResource( 3 )]
 node_a = NodePath("../../RoadGraphNodes/RoadGraphNode")
 node_b = NodePath("../../RoadGraphNodes/RoadGraphNode2")
 a_to_b = true
 
-[node name="RoadGraphConnection2" parent="RoadGraph/RoadGraphConnections" index="1" instance=ExtResource( 2 )]
+[node name="RoadGraphConnection2" parent="RoadGraph/RoadGraphConnections" index="1" instance=ExtResource( 3 )]
 node_a = NodePath("../../RoadGraphNodes/RoadGraphNode2")
 node_b = NodePath("../../RoadGraphNodes/RoadGraphNode3")
 a_to_b = true
 
-[node name="RoadGraphConnection3" parent="RoadGraph/RoadGraphConnections" index="2" instance=ExtResource( 2 )]
-node_a = NodePath("../../RoadGraphNodes/RoadGraphNode2")
+[node name="RoadGraphConnection3" parent="RoadGraph/RoadGraphConnections" index="2" instance=ExtResource( 3 )]
+node_a = NodePath("../../RoadGraphNodes/RoadGraphNode3")
 node_b = NodePath("../../RoadGraphNodes/RoadGraphNode4")
 a_to_b = true
 
-[node name="RoadGraphConnection4" parent="RoadGraph/RoadGraphConnections" index="3" instance=ExtResource( 2 )]
-node_a = NodePath("../../RoadGraphNodes/RoadGraphNode4")
+[node name="RoadGraphConnection4" parent="RoadGraph/RoadGraphConnections" index="3" instance=ExtResource( 3 )]
+node_a = NodePath("../../RoadGraphNodes/RoadGraphNode5")
+node_b = NodePath("../../RoadGraphNodes/RoadGraphNode4")
+a_to_b = true
+
+[node name="RoadGraphConnection5" parent="RoadGraph/RoadGraphConnections" index="4" instance=ExtResource( 3 )]
+node_a = NodePath("../../RoadGraphNodes/RoadGraphNode6")
 node_b = NodePath("../../RoadGraphNodes/RoadGraphNode5")
 a_to_b = true
 
-[node name="RoadGraphConnection5" parent="RoadGraph/RoadGraphConnections" index="4" instance=ExtResource( 2 )]
-node_a = NodePath("../../RoadGraphNodes/RoadGraphNode5")
-node_b = NodePath("../../RoadGraphNodes/RoadGraphNode")
-a_to_b = true
-
-[node name="RoadGraphConnection6" parent="RoadGraph/RoadGraphConnections" index="5" instance=ExtResource( 2 )]
-node_a = NodePath("../../RoadGraphNodes/RoadGraphNode5")
-node_b = NodePath("../../RoadGraphNodes/RoadGraphNode3")
-a_to_b = true
-
-[node name="RoadGraphConnection7" parent="RoadGraph/RoadGraphConnections" index="6" instance=ExtResource( 2 )]
-node_a = NodePath("../../RoadGraphNodes/RoadGraphNode3")
-node_b = NodePath("../../RoadGraphNodes/RoadGraphNode4")
-a_to_b = true
-
-[node name="RoadGraphConnection8" parent="RoadGraph/RoadGraphConnections" index="7" instance=ExtResource( 2 )]
-node_a = NodePath("../../RoadGraphNodes/RoadGraphNode3")
-node_b = NodePath("../../RoadGraphNodes/RoadGraphNode")
-a_to_b = true
-
-[node name="RoadGraphConnection9" parent="RoadGraph/RoadGraphConnections" index="8" instance=ExtResource( 2 )]
-node_a = NodePath("../../RoadGraphNodes/RoadGraphNode3")
+[node name="RoadGraphConnection6" parent="RoadGraph/RoadGraphConnections" index="5" instance=ExtResource( 3 )]
+node_a = NodePath("../../RoadGraphNodes/RoadGraphNode7")
 node_b = NodePath("../../RoadGraphNodes/RoadGraphNode6")
 a_to_b = true
 
-[node name="RoadGraphConnection10" parent="RoadGraph/RoadGraphConnections" index="9" instance=ExtResource( 2 )]
-node_a = NodePath("../../RoadGraphNodes/RoadGraphNode6")
+[node name="RoadGraphConnection7" parent="RoadGraph/RoadGraphConnections" index="6" instance=ExtResource( 3 )]
+node_a = NodePath("../../RoadGraphNodes/RoadGraphNode4")
+node_b = NodePath("../../RoadGraphNodes/RoadGraphNode20")
+a_to_b = true
+
+[node name="RoadGraphConnection8" parent="RoadGraph/RoadGraphConnections" index="7" instance=ExtResource( 3 )]
+node_a = NodePath("../../RoadGraphNodes/RoadGraphNode20")
+node_b = NodePath("../../RoadGraphNodes/RoadGraphNode8")
+a_to_b = true
+
+[node name="RoadGraphConnection9" parent="RoadGraph/RoadGraphConnections" index="8" instance=ExtResource( 3 )]
+node_a = NodePath("../../RoadGraphNodes/RoadGraphNode8")
+node_b = NodePath("../../RoadGraphNodes/RoadGraphNode7")
+a_to_b = true
+
+[node name="RoadGraphConnection10" parent="RoadGraph/RoadGraphConnections" index="9" instance=ExtResource( 3 )]
+node_a = NodePath("../../RoadGraphNodes/RoadGraphNode8")
+node_b = NodePath("../../RoadGraphNodes/RoadGraphNode9")
+a_to_b = true
+
+[node name="RoadGraphConnection11" parent="RoadGraph/RoadGraphConnections" index="10" instance=ExtResource( 3 )]
+node_a = NodePath("../../RoadGraphNodes/RoadGraphNode7")
+node_b = NodePath("../../RoadGraphNodes/RoadGraphNode13")
+a_to_b = true
+
+[node name="RoadGraphConnection12" parent="RoadGraph/RoadGraphConnections" index="11" instance=ExtResource( 3 )]
+node_a = NodePath("../../RoadGraphNodes/RoadGraphNode13")
+node_b = NodePath("../../RoadGraphNodes/RoadGraphNode14")
+a_to_b = true
+
+[node name="RoadGraphConnection13" parent="RoadGraph/RoadGraphConnections" index="12" instance=ExtResource( 3 )]
+node_a = NodePath("../../RoadGraphNodes/RoadGraphNode14")
+node_b = NodePath("../../RoadGraphNodes/RoadGraphNode15")
+a_to_b = true
+
+[node name="RoadGraphConnection14" parent="RoadGraph/RoadGraphConnections" index="13" instance=ExtResource( 3 )]
+node_a = NodePath("../../RoadGraphNodes/RoadGraphNode15")
+node_b = NodePath("../../RoadGraphNodes/RoadGraphNode12")
+a_to_b = true
+
+[node name="RoadGraphConnection15" parent="RoadGraph/RoadGraphConnections" index="14" instance=ExtResource( 3 )]
+node_a = NodePath("../../RoadGraphNodes/RoadGraphNode13")
+node_b = NodePath("../../RoadGraphNodes/RoadGraphNode12")
+a_to_b = true
+
+[node name="RoadGraphConnection16" parent="RoadGraph/RoadGraphConnections" index="15" instance=ExtResource( 3 )]
+node_a = NodePath("../../RoadGraphNodes/RoadGraphNode9")
+node_b = NodePath("../../RoadGraphNodes/RoadGraphNode12")
+a_to_b = true
+
+[node name="RoadGraphConnection17" parent="RoadGraph/RoadGraphConnections" index="16" instance=ExtResource( 3 )]
+node_a = NodePath("../../RoadGraphNodes/RoadGraphNode15")
+node_b = NodePath("../../RoadGraphNodes/RoadGraphNode16")
+a_to_b = true
+
+[node name="RoadGraphConnection18" parent="RoadGraph/RoadGraphConnections" index="17" instance=ExtResource( 3 )]
+node_a = NodePath("../../RoadGraphNodes/RoadGraphNode16")
+node_b = NodePath("../../RoadGraphNodes/RoadGraphNode17")
+a_to_b = true
+
+[node name="RoadGraphConnection19" parent="RoadGraph/RoadGraphConnections" index="18" instance=ExtResource( 3 )]
+node_a = NodePath("../../RoadGraphNodes/RoadGraphNode17")
+node_b = NodePath("../../RoadGraphNodes/RoadGraphNode18")
+a_to_b = true
+
+[node name="RoadGraphConnection20" parent="RoadGraph/RoadGraphConnections" index="19" instance=ExtResource( 3 )]
+node_a = NodePath("../../RoadGraphNodes/RoadGraphNode18")
+node_b = NodePath("../../RoadGraphNodes/RoadGraphNode11")
+a_to_b = true
+
+[node name="RoadGraphConnection21" parent="RoadGraph/RoadGraphConnections" index="20" instance=ExtResource( 3 )]
+node_a = NodePath("../../RoadGraphNodes/RoadGraphNode12")
+node_b = NodePath("../../RoadGraphNodes/RoadGraphNode11")
+a_to_b = true
+
+[node name="RoadGraphConnection22" parent="RoadGraph/RoadGraphConnections" index="21" instance=ExtResource( 3 )]
+node_a = NodePath("../../RoadGraphNodes/RoadGraphNode11")
+node_b = NodePath("../../RoadGraphNodes/RoadGraphNode10")
+a_to_b = true
+
+[node name="RoadGraphConnection23" parent="RoadGraph/RoadGraphConnections" index="22" instance=ExtResource( 3 )]
+node_a = NodePath("../../RoadGraphNodes/RoadGraphNode11")
+node_b = NodePath("../../RoadGraphNodes/RoadGraphNode19")
+a_to_b = true
+
+[node name="RoadGraphConnection24" parent="RoadGraph/RoadGraphConnections" index="23" instance=ExtResource( 3 )]
+node_a = NodePath("../../RoadGraphNodes/RoadGraphNode10")
+node_b = NodePath("../../RoadGraphNodes/RoadGraphNode9")
+a_to_b = true
+
+[node name="RoadGraphConnection25" parent="RoadGraph/RoadGraphConnections" index="24" instance=ExtResource( 3 )]
+node_a = NodePath("../../RoadGraphNodes/RoadGraphNode19")
 node_b = NodePath("../../RoadGraphNodes/RoadGraphNode")
 a_to_b = true
 
-[node name="RoadGraphConnection11" parent="RoadGraph/RoadGraphConnections" index="10" instance=ExtResource( 2 )]
-node_a = NodePath("../../RoadGraphNodes/RoadGraphNode6")
-node_b = NodePath("../../RoadGraphNodes/RoadGraphNode2")
-a_to_b = true
+[node name="RoadGraphNode" parent="RoadGraph/RoadGraphNodes" index="0" instance=ExtResource( 4 )]
+position = Vector2( 320.222, -33.2411 )
 
-[node name="RoadGraphNode" parent="RoadGraph/RoadGraphNodes" index="0" instance=ExtResource( 3 )]
-position = Vector2( 235.006, 125.911 )
+[node name="RoadGraphNode2" parent="RoadGraph/RoadGraphNodes" index="1" instance=ExtResource( 4 )]
+position = Vector2( 577.286, 90.8589 )
 
-[node name="RoadGraphNode2" parent="RoadGraph/RoadGraphNodes" index="1" instance=ExtResource( 3 )]
-position = Vector2( 1278.63, -129.956 )
+[node name="RoadGraphNode3" parent="RoadGraph/RoadGraphNodes" index="2" instance=ExtResource( 4 )]
+position = Vector2( 447.646, 152.909 )
 
-[node name="RoadGraphNode3" parent="RoadGraph/RoadGraphNodes" index="2" instance=ExtResource( 3 )]
-position = Vector2( 554.016, 286.922 )
+[node name="RoadGraphNode4" parent="RoadGraph/RoadGraphNodes" index="3" instance=ExtResource( 4 )]
+position = Vector2( 576.178, 219.391 )
 
-[node name="RoadGraphNode4" parent="RoadGraph/RoadGraphNodes" index="3" instance=ExtResource( 3 )]
-position = Vector2( 809.446, 444.379 )
+[node name="RoadGraphNode5" parent="RoadGraph/RoadGraphNodes" index="4" instance=ExtResource( 4 )]
+position = Vector2( 702.494, 160.665 )
 
-[node name="RoadGraphNode5" parent="RoadGraph/RoadGraphNodes" index="4" instance=ExtResource( 3 )]
-position = Vector2( 296.252, 437.381 )
+[node name="RoadGraphNode6" parent="RoadGraph/RoadGraphNodes" index="5" instance=ExtResource( 4 )]
+position = Vector2( 1028.26, 319.114 )
 
-[node name="RoadGraphNode6" parent="RoadGraph/RoadGraphNodes" index="5" instance=ExtResource( 3 )]
-position = Vector2( 550.516, 195.947 )
+[node name="RoadGraphNode7" parent="RoadGraph/RoadGraphNodes" index="6" instance=ExtResource( 4 )]
+position = Vector2( 766.76, 446.538 )
 
-[node name="Car" parent="." instance=ExtResource( 4 )]
+[node name="RoadGraphNode8" parent="RoadGraph/RoadGraphNodes" index="7" instance=ExtResource( 4 )]
+position = Vector2( 577.286, 345.707 )
+
+[node name="RoadGraphNode9" parent="RoadGraph/RoadGraphNodes" index="8" instance=ExtResource( 4 )]
+position = Vector2( 448.754, 413.297 )
+
+[node name="RoadGraphNode10" parent="RoadGraph/RoadGraphNodes" index="9" instance=ExtResource( 4 )]
+position = Vector2( 255.956, 313.574 )
+
+[node name="RoadGraphNode11" parent="RoadGraph/RoadGraphNodes" index="10" instance=ExtResource( 4 )]
+position = Vector2( 129.64, 378.948 )
+
+[node name="RoadGraphNode12" parent="RoadGraph/RoadGraphNodes" index="11" instance=ExtResource( 4 )]
+position = Vector2( 319.114, 479.779 )
+
+[node name="RoadGraphNode13" parent="RoadGraph/RoadGraphNodes" index="12" instance=ExtResource( 4 )]
+position = Vector2( 513.02, 571.746 )
+
+[node name="RoadGraphNode14" parent="RoadGraph/RoadGraphNodes" index="13" instance=ExtResource( 4 )]
+position = Vector2( 127.757, 765.431 )
+
+[node name="RoadGraphNode15" parent="RoadGraph/RoadGraphNodes" index="14" instance=ExtResource( 4 )]
+position = Vector2( -65.9279, 671.746 )
+
+[node name="RoadGraphNode16" parent="RoadGraph/RoadGraphNodes" index="15" instance=ExtResource( 4 )]
+position = Vector2( -576.455, 414.904 )
+
+[node name="RoadGraphNode17" parent="RoadGraph/RoadGraphNodes" index="16" instance=ExtResource( 4 )]
+position = Vector2( -385.929, 317.009 )
+
+[node name="RoadGraphNode18" parent="RoadGraph/RoadGraphNodes" index="17" instance=ExtResource( 4 )]
+position = Vector2( -61.7174, 478.062 )
+
+[node name="RoadGraphNode19" parent="RoadGraph/RoadGraphNodes" index="18" instance=ExtResource( 4 )]
+position = Vector2( -191.191, 221.219 )
+
+[node name="RoadGraphNode20" parent="RoadGraph/RoadGraphNodes" index="19" instance=ExtResource( 4 )]
+position = Vector2( 449.81, 286.219 )
+
+[node name="Car" parent="." instance=ExtResource( 5 )]
+position = Vector2( 94.421, -138.219 )
 road_graph = NodePath("../RoadGraph")
-target_graph_node = NodePath("../RoadGraph/RoadGraphNodes/RoadGraphNode")
+target_graph_node = NodePath("../RoadGraph/RoadGraphNodes/RoadGraphNode15")
 
 [node name="PlayerCar" parent="." groups=[
 "traffic",
-] instance=ExtResource( 5 )]
+] instance=ExtResource( 6 )]
 position = Vector2( 0, 480.044 )
 road_graph = NodePath("../RoadGraph")
-target_graph_node = NodePath("../RoadGraph/RoadGraphNodes/RoadGraphNode4")
+target_graph_node = NodePath("../RoadGraph/RoadGraphNodes/RoadGraphNode")
 
-[node name="Landmarks" parent="." instance=ExtResource( 6 )]
+[node name="Landmarks" parent="." instance=ExtResource( 7 )]
 
-[node name="Landmark" parent="Landmarks/Sources" index="0" instance=ExtResource( 7 )]
-position = Vector2( 723.317, 442.656 )
+[node name="Landmark" parent="Landmarks/Sources" index="0" instance=ExtResource( 8 )]
+position = Vector2( -258.752, 377.34 )
 
-[node name="Landmark2" parent="Landmarks/Sources" index="1" instance=ExtResource( 7 )]
-position = Vector2( 1153.27, -100.091 )
+[node name="Landmark2" parent="Landmarks/Sources" index="1" instance=ExtResource( 8 )]
+position = Vector2( 895.375, 382.015 )
 
-[node name="Landmark" parent="Landmarks/Destinations" index="0" instance=ExtResource( 7 )]
-position = Vector2( 477.589, 248.002 )
+[node name="Landmark" parent="Landmarks/Destinations" index="0" instance=ExtResource( 8 )]
+position = Vector2( 57.702, 88.2116 )
 landmark_name = "POOL"
 
-[node name="Landmark2" parent="Landmarks/Destinations" index="1" instance=ExtResource( 7 )]
-position = Vector2( 666.66, 354.815 )
+[node name="Landmark2" parent="Landmarks/Destinations" index="1" instance=ExtResource( 8 )]
+position = Vector2( 260.769, 704.721 )
 landmark_name = "GARDEN"
 
-[node name="PassengerController" parent="." instance=ExtResource( 8 )]
+[node name="PassengerController" parent="." instance=ExtResource( 9 )]
 landmarks = NodePath("../Landmarks")
+
+[node name="SourcePin" parent="PassengerController" index="0"]
+position = Vector2( -97.8338, -17.064 )
+
+[node name="DestinationPin" parent="PassengerController" index="1"]
+position = Vector2( -115.467, -71.6689 )
 
 [node name="PinPointer" parent="PassengerController" index="3"]
 player = NodePath("../../PlayerCar")
