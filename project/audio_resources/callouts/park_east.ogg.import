@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/park_east.ogg-d95e4b2aa7eb35e12466be1201039d5d.oggstr"
+
+[deps]
+
+source_file="res://audio_resources/callouts/park_east.ogg"
+dest_files=[ "res://.import/park_east.ogg-d95e4b2aa7eb35e12466be1201039d5d.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0
