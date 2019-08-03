@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://intro_message.gd" type="Script" id=1]
+[ext_resource path="res://objects/audio/intro_message.gd" type="Script" id=1]
 [ext_resource path="res://audio_resources/intro/welcome.ogg" type="AudioStream" id=2]
 [ext_resource path="res://audio_resources/intro/great_day.ogg" type="AudioStream" id=3]
 [ext_resource path="res://audio_resources/intro/out_and_about.ogg" type="AudioStream" id=4]

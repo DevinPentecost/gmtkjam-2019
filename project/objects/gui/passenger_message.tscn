@@ -1,0 +1,87 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://objects/gui/passenger_message.gd" type="Script" id=1]
+[ext_resource path="res://2d_resources/text_container_test.png" type="Texture" id=2]
+[ext_resource path="res://2d_resources/text_background_test.png" type="Texture" id=3]
+[ext_resource path="res://2d_resources/portait_border.png" type="Texture" id=4]
+[ext_resource path="res://2d_resources/portrait_test.png" type="Texture" id=5]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://2d_resources/font/pixellari/Pixellari.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 42
+outline_size = 3
+outline_color = Color( 0.133333, 0.133333, 0.133333, 1 )
+extra_spacing_top = 7
+extra_spacing_bottom = 7
+extra_spacing_char = 1
+extra_spacing_space = 2
+font_data = SubResource( 1 )
+
+[node name="passenger_message" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="texture_all_elements" type="TextureRect" parent="."]
+margin_top = 390.0
+margin_right = 1024.0
+margin_bottom = 590.0
+rect_min_size = Vector2( 1024, 210 )
+rect_clip_content = true
+stretch_mode = 3
+
+[node name="texture_text_container" type="TextureRect" parent="texture_all_elements"]
+margin_top = 60.0
+margin_right = 1024.0
+margin_bottom = 210.0
+rect_min_size = Vector2( 680, 150 )
+rect_clip_content = true
+texture = ExtResource( 2 )
+stretch_mode = 3
+
+[node name="texture_text_border" type="TextureRect" parent="texture_all_elements/texture_text_container"]
+margin_left = 175.0
+margin_top = 20.0
+margin_right = 815.0
+margin_bottom = 145.0
+rect_min_size = Vector2( 640, 125 )
+texture = ExtResource( 3 )
+
+[node name="richtext_message" type="RichTextLabel" parent="texture_all_elements/texture_text_container/texture_text_border"]
+margin_left = 15.0
+margin_top = 5.0
+margin_right = 615.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 605, 115 )
+rect_clip_content = false
+custom_fonts/normal_font = SubResource( 2 )
+custom_colors/default_color = Color( 0.733333, 0.466667, 0.733333, 1 )
+meta_underlined = false
+text = "I can't wait to go home and see my family!"
+scroll_active = false
+
+[node name="tween_text_visible" type="Tween" parent="texture_all_elements/texture_text_container/texture_text_border/richtext_message"]
+
+[node name="texture_portrait_border" type="TextureRect" parent="texture_all_elements"]
+margin_left = 40.0
+margin_right = 165.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 125, 200 )
+rect_clip_content = true
+texture = ExtResource( 4 )
+
+[node name="texture_portrait" type="TextureRect" parent="texture_all_elements/texture_portrait_border"]
+show_behind_parent = true
+margin_right = 125.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 125, 200 )
+rect_clip_content = true
+texture = ExtResource( 5 )
+
+[node name="tween_vertical_pos" type="Tween" parent="texture_all_elements"]
+
+[node name="timer_hide_delay" type="Timer" parent="."]
+one_shot = true
+[connection signal="tween_all_completed" from="texture_all_elements/texture_text_container/texture_text_border/richtext_message/tween_text_visible" to="." method="_on_tween_text_visible_tween_all_completed"]
+[connection signal="tween_all_completed" from="texture_all_elements/tween_vertical_pos" to="." method="_on_tween_vertical_pos_tween_all_completed"]
+[connection signal="timeout" from="timer_hide_delay" to="." method="_on_timer_hide_delay_timeout"]

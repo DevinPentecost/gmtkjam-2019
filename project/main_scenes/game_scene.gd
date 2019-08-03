@@ -7,6 +7,17 @@ extends Node2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$intro_message.play_next_clip()
+	
+	# As a test, just use the default message and portrait
+	var dict0 = {}
+	dict0["portrait_texture"] = load("res://2d_resources/portrait_test.png")
+	dict0["text_message"] = "I can't wait to get home and play with my family !!"
+	$passenger_message.append_passenger_message(dict0)
+	
+	var dict1 = {}
+	dict1["portrait_texture"] = load("res://2d_resources/portrait_test.png")
+	dict1["text_message"] = "kill yourself"
+	$passenger_message.append_passenger_message(dict1)
 	pass # Replace with function body.
 
 func _on_slider_speed_value_changed(value):
