@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://objects/audio/driving_engine_sound.gd" type="Script" id=1]
-[ext_resource path="res://audio_resources/engine_driving.ogg" type="AudioStream" id=2]
+[ext_resource path="res://audio_resources/sound_effects/engine_driving.ogg" type="AudioStream" id=2]
 
 [node name="driving_engine_sound" type="Node2D"]
 script = ExtResource( 1 )

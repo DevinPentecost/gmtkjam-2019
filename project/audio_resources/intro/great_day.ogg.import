@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/great_day.ogg-0fbf938887b65feffa1f1b1a1ede250b.oggstr"
+
+[deps]
+
+source_file="res://audio_resources/intro/great_day.ogg"
+dest_files=[ "res://.import/great_day.ogg-0fbf938887b65feffa1f1b1a1ede250b.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0
