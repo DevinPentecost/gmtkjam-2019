@@ -41,7 +41,7 @@ func show(show=true):
 
 func set_score(score):
 	
-	$VBoxContainer/ScoreLabel.text = str(score)
+	$VBoxContainer/ScoreLabel.text = str(int(score))
 
 func _on_RestartButton_pressed():
 	get_tree().paused = false
