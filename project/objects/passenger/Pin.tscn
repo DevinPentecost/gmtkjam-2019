@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://objects/passenger/Pin.gd" type="Script" id=1]
 [ext_resource path="res://objects/passenger/smile.png" type="Texture" id=2]
+[ext_resource path="res://2d_resources/tiles/dir_se.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5, 5 )
@@ -19,4 +20,10 @@ texture = ExtResource( 2 )
 offset = Vector2( 0, -11.21 )
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="FloatingSprite" type="Sprite" parent="."]
+texture = ExtResource( 3 )
+
+[node name="debugline" type="Line2D" parent="."]
+texture_mode = 3080292
 [connection signal="area_entered" from="." to="." method="_on_Pin_area_entered"]
