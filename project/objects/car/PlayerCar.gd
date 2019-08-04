@@ -28,8 +28,9 @@ func _process(delta):
 	$PlayerCamera.zoom = Vector2(zoom, zoom)
 	
 	#Adjust speed
+	accelleration = min(4, accelleration)
 	speed += accelleration * delta
-	speed = min(speed, max_speed)
+	speed = max(min(speed, max_speed), min_speed)
 	
 	# Adjust audio
 	var speed_percent = (100 * (speed - min_speed)) / (max_speed - min_speed)
