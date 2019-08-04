@@ -209,15 +209,11 @@ position = Vector2( 449.81, 286.219 )
 
 [node name="Car" parent="." instance=ExtResource( 6 )]
 position = Vector2( 94.421, -138.219 )
-road_graph = NodePath("../RoadGraph")
-target_graph_node = NodePath("../RoadGraph/RoadGraphNodes/RoadGraphNode15")
 
 [node name="PlayerCar" parent="." groups=[
 "traffic",
 ] instance=ExtResource( 7 )]
 position = Vector2( 0, 480.044 )
-road_graph = NodePath("../RoadGraph")
-target_graph_node = NodePath("../RoadGraph/RoadGraphNodes/RoadGraphNode")
 
 [node name="Landmarks" parent="." instance=ExtResource( 8 )]
 
@@ -243,9 +239,6 @@ position = Vector2( -97.8338, -17.064 )
 
 [node name="DestinationPin" parent="PassengerController" index="1"]
 position = Vector2( -115.467, -71.6689 )
-
-[node name="PinPointer" parent="PassengerController" index="3"]
-player = NodePath("../../PlayerCar")
 
 [node name="MainGUI" parent="." instance=ExtResource( 11 )]
 [connection signal="time_up" from="GameController" to="MainGUI" method="_on_GameController_time_up"]

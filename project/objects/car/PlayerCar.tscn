@@ -14,7 +14,8 @@ script = ExtResource( 2 )
 [node name="PlayerCamera" parent="." index="0" instance=ExtResource( 3 )]
 
 [node name="Sprite" parent="." index="2"]
-self_modulate = Color( 0.227451, 0.8, 1, 1 )
+self_modulate = Color( 1, 1, 1, 1 )
+scale = Vector2( 0.3, 0.3 )
 
 [node name="driving_engine_sound" parent="." index="6" instance=ExtResource( 4 )]
 

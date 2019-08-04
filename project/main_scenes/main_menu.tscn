@@ -1,8 +1,14 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://main_scenes/main_menu.gd" type="Script" id=1]
-[ext_resource path="res://2d_resources/20180528-205447-jpg.jpg" type="Texture" id=2]
-[ext_resource path="res://audio_resources/bgm.ogg" type="AudioStream" id=3]
+[ext_resource path="res://2d_resources/title.png" type="Texture" id=2]
+[ext_resource path="res://2d_resources/button_play_inactive.png" type="Texture" id=3]
+[ext_resource path="res://2d_resources/button_play_active.png" type="Texture" id=4]
+[ext_resource path="res://2d_resources/button_howto_inactive.png" type="Texture" id=5]
+[ext_resource path="res://2d_resources/button_howto_active.png" type="Texture" id=6]
+[ext_resource path="res://2d_resources/button_scores_inactive.png" type="Texture" id=7]
+[ext_resource path="res://2d_resources/button_scores_active.png" type="Texture" id=8]
+[ext_resource path="res://audio_resources/bgm.ogg" type="AudioStream" id=9]
 
 [node name="node_toplevel" type="Node2D"]
 script = ExtResource( 1 )
@@ -20,36 +26,42 @@ margin_right = 41.0
 margin_bottom = 39.0
 
 [node name="20180528-205447-jpg" type="Sprite" parent="panel_primary/background_image"]
-position = Vector2( 483.71, 299.292 )
-scale = Vector2( 0.754988, 0.827907 )
 texture = ExtResource( 2 )
+centered = false
 
-[node name="button_start" type="Button" parent="panel_primary"]
-margin_left = 751.681
-margin_top = 408.432
-margin_right = 927.681
-margin_bottom = 450.432
+[node name="button_start" type="TextureButton" parent="panel_primary"]
+margin_left = 258.0
+margin_top = 139.0
+margin_right = 770.0
+margin_bottom = 395.0
+rect_scale = Vector2( 0.6, 0.6 )
 rect_pivot_offset = Vector2( 834, -195 )
-text = "START GAME"
+texture_normal = ExtResource( 3 )
+texture_hover = ExtResource( 4 )
 
-[node name="button_howto" type="Button" parent="panel_primary"]
-margin_left = 750.681
-margin_top = 480.432
-margin_right = 926.681
-margin_bottom = 522.432
+[node name="button_howto" type="TextureButton" parent="panel_primary"]
+margin_left = 255.0
+margin_top = 322.0
+margin_right = 767.0
+margin_bottom = 578.0
+rect_scale = Vector2( 0.6, 0.6 )
 rect_pivot_offset = Vector2( 834, -195 )
-text = "HOW TO PLAY"
+texture_normal = ExtResource( 5 )
+texture_hover = ExtResource( 6 )
 
-[node name="button_leaderboard" type="Button" parent="panel_primary"]
-margin_left = 751.681
-margin_top = 530.432
-margin_right = 927.681
-margin_bottom = 572.432
-text = "LEADERBOARDS"
+[node name="button_leaderboard" type="TextureButton" parent="panel_primary"]
+margin_left = 252.0
+margin_top = 495.0
+margin_right = 764.0
+margin_bottom = 751.0
+rect_scale = Vector2( 0.6, 0.6 )
+rect_pivot_offset = Vector2( 834, -195 )
+texture_normal = ExtResource( 7 )
+texture_hover = ExtResource( 8 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 3 )
-volume_db = -30.0
+stream = ExtResource( 9 )
+volume_db = -15.0
 autoplay = true
 [connection signal="pressed" from="panel_primary/button_start" to="." method="_on_button_start_pressed"]
 [connection signal="pressed" from="panel_primary/button_howto" to="." method="_on_button_howto_pressed"]
