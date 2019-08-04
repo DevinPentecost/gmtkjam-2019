@@ -1,11 +1,10 @@
 extends Area2D
 
 signal pin_reached
+signal pin_can_see
+signal pin_cant_see
 
-export var debug = true
-export var compass_radius = 250.0
-export(NodePath) var player
-onready var _player = get_node(player)
+export var debug = false
 
 #Tweening stuff
 var height_offset = 100.0
@@ -27,15 +26,12 @@ func _ready():
 func screen_entered():
 	print()
 	if _showing:
-		print("im on the screen, remove pointer")
-		print(get_viewport_transform().origin)
-	_pointer.visible = false
+		emit_signal("pin_can_see")
 
 func screen_exited():
 	if _showing:
-		print("im off the screen, show pointer")
-		print(get_viewport_transform().origin)
-		_pointer.visible = true
+		emit_signal("pin_cant_see")
+
 
 func set_showing(showing=true):
 	_showing = showing
@@ -66,12 +62,40 @@ func _on_Pin_area_entered(area):
 		emit_signal("pin_reached")
 
 func _draw():
-	if debug and _player:
-		draw_line(Vector2(0,0), _float_point, Color(255, 0, 0), 1)
-		
-		
+	if debug:
+		draw_line(Vector2(0,0), to_local(_float_point), Color(255, 0, 0), 1)
 		# testing canvas edges
-		draw_rect(_local_rect(_get_camera_rect()), Color(255, 0, 0), false)
+		draw_rect(_local_rect(_get_camera_rect()).grow(-3), Color(255, 0, 0), false)
+
+func _get_rect_intersection(somerect, somepoint):
+	# returns point along border of somerect that is closest to somepoint.
+	# if the point is inside the rect, returns null
+	
+	if somerect.has_point(somepoint):
+		return null
+	
+	var center = somerect.position.linear_interpolate(somerect.end, 0.5)
+	var topleft = somerect.position
+	var bottomright = somerect.end
+	var topright = topleft
+	topright.x = bottomright.x
+	var bottomleft = bottomright
+	bottomleft.x = topleft.x
+	
+	var x = Geometry.segment_intersects_segment_2d(center, somepoint, topleft, topright)
+	if x != null:
+		return x
+	x = Geometry.segment_intersects_segment_2d(center, somepoint, topright, bottomright)
+	if x != null:
+		return x
+	x = Geometry.segment_intersects_segment_2d(center, somepoint, bottomright, bottomleft)
+	if x != null:
+		return x
+	x = Geometry.segment_intersects_segment_2d(center, somepoint, bottomleft, topleft)
+	if x != null:
+		return x
+	printerr("it's really broken")
+	return null
 
 func _get_camera_rect():
 	# returns in global positioned rect!!
@@ -83,20 +107,17 @@ func _get_camera_rect():
 func _local_rect(grect):
 	return Rect2(to_local(grect.position), grect.size)
 
-#func _get_camera_intersection(gpos):
-	# check each border of the screen
-#	Geometry.segment_intersects_segment_2d()
 
 func _process(delta):
-	var tpos = _player.global_position
-	
-	var dist = (to_local(tpos).length() - compass_radius)
-	if dist > 0:
-		_float_point = to_local(tpos).normalized() * dist
+	var camrect =  _get_camera_rect().grow(-3)
+	var testpoint = _get_rect_intersection(camrect, global_position)
+	if testpoint:
+		_float_point = testpoint
+		_pointer.visible = true
 	else:
 		_pointer.visible = false
-		
-	if debug and _player:
-		update()
 	
-	_pointer.global_position = to_global(_float_point)
+	_pointer.global_position = _float_point
+	_pointer.set_rotation(_pointer.global_position.angle_to_point(global_position))
+	update()
+	
