@@ -1,6 +1,17 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
-[sub_resource type="GDScript" id=1]
+[ext_resource path="res://objects/gui/patch_rect.png" type="Texture" id=1]
+[ext_resource path="res://objects/gui/font.tres" type="DynamicFont" id=2]
+
+[sub_resource type="StyleBoxTexture" id=1]
+texture = ExtResource( 1 )
+region_rect = Rect2( 0, 0, 8, 8 )
+margin_left = 2.0
+margin_right = 2.0
+margin_top = 2.0
+margin_bottom = 2.0
+
+[sub_resource type="GDScript" id=2]
 script/source = "extends PanelContainer
 
 # Declare member variables here. Examples:
@@ -19,9 +30,13 @@ func show(show=true):
 	
 	#Are we showing or hiding
 	if not show:
-		$Tween.interpolate_property(self, \"rect_position:x\", rect_position.x, -300, 0.01, Tween.TRANS_LINEAR, Tween.EASE_IN)
+		$Tween.interpolate_property(self, \"margin_left\", margin_left, -1000, 0.01, Tween.TRANS_QUAD, Tween.EASE_OUT)
+		$Tween.interpolate_property(self, \"margin_right\", margin_right, -1000, 0.01, Tween.TRANS_QUAD, Tween.EASE_OUT)
 	else:
-		$Tween.interpolate_property(self, \"margin_left\", margin_left, 0, 1, Tween.TRANS_QUAD, Tween.EASE_OUT)
+		$Tween.interpolate_property(self, \"margin_left\", margin_left, 0, 0.5, Tween.TRANS_QUAD, Tween.EASE_OUT)
+		$Tween.interpolate_property(self, \"margin_right\", margin_right, 0, 0.5, Tween.TRANS_QUAD, Tween.EASE_OUT)
+		$Tween.interpolate_property(self, \"margin_top\", margin_top, 0, 0.5, Tween.TRANS_QUAD, Tween.EASE_OUT)
+		$Tween.interpolate_property(self, \"margin_bottom\", margin_bottom, 0, 0.5, Tween.TRANS_QUAD, Tween.EASE_OUT)
 	$Tween.start()
 
 func set_score(score):
@@ -35,8 +50,11 @@ func _on_RestartButton_pressed():
 
 func _on_SubmitButton_pressed():
 	
+	var score = int($VBoxContainer/ScoreLabel.text)
+	var player_name = $VBoxContainer/HBoxContainer/NameLineInput.text.percent_encode()
+	
 	#Send data for the leaderboard
-	var url = \"https://us-central1-leaderbro-4781d.cloudfunctions.net/leaderboards/add_score?leaderboard_id=gmtkjam2019&name={name}&score={score}\".format({\"name\": $VBoxContainer/HBoxContainer/NameLineInput.text, \"score\": $VBoxContainer/ScoreLabel.text})
+	var url = \"https://us-central1-leaderbro-4781d.cloudfunctions.net/leaderboards/add_score?leaderboard_id=gmtkjam2019&name={name}&score={score}\".format({\"name\": player_name, \"score\": score})
 	$HTTPRequest.request(url, PoolStringArray([]), false)
 	$VBoxContainer/ScoreLabel.text = \"SCORE SUBMITTED\"
 	$VBoxContainer/HBoxContainer/NameLineInput.editable = false
@@ -58,69 +76,80 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-script = SubResource( 1 )
+custom_styles/panel = SubResource( 1 )
+script = SubResource( 2 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 226.0
-margin_bottom = 107.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 677.0
+margin_bottom = 270.0
 
 [node name="ScoreHeaderLabel" type="Label" parent="VBoxContainer"]
-margin_right = 219.0
-margin_bottom = 14.0
+margin_right = 675.0
+margin_bottom = 57.0
+custom_fonts/font = ExtResource( 2 )
 text = "SCORE"
 align = 1
 valign = 1
 uppercase = true
 
 [node name="ScoreLabel" type="Label" parent="VBoxContainer"]
-margin_top = 18.0
-margin_right = 219.0
-margin_bottom = 32.0
+margin_top = 61.0
+margin_right = 675.0
+margin_bottom = 118.0
+custom_fonts/font = ExtResource( 2 )
 text = "0000"
 align = 1
 valign = 1
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
-margin_top = 36.0
-margin_right = 219.0
-margin_bottom = 40.0
+margin_top = 122.0
+margin_right = 675.0
+margin_bottom = 126.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 44.0
-margin_right = 219.0
-margin_bottom = 68.0
+margin_top = 130.0
+margin_right = 675.0
+margin_bottom = 193.0
 
 [node name="NameLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
-margin_top = 5.0
-margin_right = 46.0
-margin_bottom = 19.0
+margin_top = 3.0
+margin_right = 143.0
+margin_bottom = 60.0
+custom_fonts/font = ExtResource( 2 )
 text = "NAME: "
 
 [node name="NameLineInput" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
-margin_left = 50.0
-margin_right = 108.0
-margin_bottom = 24.0
+margin_left = 147.0
+margin_right = 347.0
+margin_bottom = 63.0
+rect_min_size = Vector2( 200, 0 )
 size_flags_horizontal = 3
+caret_blink = true
+caret_blink_speed = 0.5
 
 [node name="SubmitButton" type="Button" parent="VBoxContainer/HBoxContainer"]
-margin_left = 112.0
-margin_right = 219.0
-margin_bottom = 24.0
+margin_left = 351.0
+margin_right = 675.0
+margin_bottom = 63.0
+custom_fonts/font = ExtResource( 2 )
 disabled = true
 text = "SUBMIT SCORE"
+flat = true
 
 [node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
-margin_top = 72.0
-margin_right = 219.0
-margin_bottom = 76.0
+margin_top = 197.0
+margin_right = 675.0
+margin_bottom = 201.0
 
 [node name="RestartButton" type="Button" parent="VBoxContainer"]
-margin_top = 80.0
-margin_right = 219.0
-margin_bottom = 100.0
+margin_top = 205.0
+margin_right = 675.0
+margin_bottom = 268.0
+custom_fonts/font = ExtResource( 2 )
 text = "PLAY AGAIN"
+flat = true
 
 [node name="Tween" type="Tween" parent="."]
 
