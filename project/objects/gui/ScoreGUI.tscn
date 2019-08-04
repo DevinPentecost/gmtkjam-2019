@@ -1,7 +1,10 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://2d_resources/dogs/circle.png" type="Texture" id=1]
+[ext_resource path="res://objects/gui/font.tres" type="DynamicFont" id=2]
 
 [sub_resource type="GDScript" id=1]
-script/source = "extends PanelContainer
+script/source = "extends Control
 
 #Find the game controller
 var game_controller = null
@@ -27,27 +30,46 @@ func _process(delta):
 	$VBoxContainer/ScoreLabel.text = \"SCORE: \" + str(int(game_controller.score))
 "
 
-[node name="ScoreGUI" type="PanelContainer"]
+[node name="ScoreGUI" type="Control"]
 anchor_left = 1.0
 anchor_right = 1.0
 grow_horizontal = 0
 script = SubResource( 1 )
 
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 44.354
+margin_top = 204.82
+margin_right = 1150.35
+margin_bottom = 1300.82
+grow_horizontal = 0
+grow_vertical = 0
+rect_rotation = 180.0
+rect_scale = Vector2( 0.3, 0.3 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 1 )
+stretch_mode = 4
+
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 88.0
-margin_bottom = 39.0
+margin_left = -267.018
+margin_top = 7.28345
+margin_right = -4.01837
+margin_bottom = 125.283
+grow_horizontal = 0
 
 [node name="TimeLabel" type="Label" parent="VBoxContainer"]
-margin_right = 81.0
-margin_bottom = 14.0
+margin_right = 263.0
+margin_bottom = 57.0
+custom_fonts/font = ExtResource( 2 )
 text = "TIME: 0000"
 align = 2
 
 [node name="ScoreLabel" type="Label" parent="VBoxContainer"]
-margin_top = 18.0
-margin_right = 81.0
-margin_bottom = 32.0
+margin_top = 61.0
+margin_right = 263.0
+margin_bottom = 118.0
+custom_fonts/font = ExtResource( 2 )
 text = "SCORE: 0000"
 align = 2
