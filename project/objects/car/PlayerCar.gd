@@ -56,23 +56,31 @@ func pick_next_destination():
 		.pick_next_destination()
 
 func _unhandled_key_input(event):
+	var move_event = false
 	#Was a direction hit?
 	if event.is_action_pressed("player_turn_left"):
 		left_pressed = true
-	else:
+		move_event = true
+	elif event.is_action_released("player_turn_left"):
 		left_pressed = false
+		move_event = true
 	
 	if event.is_action_pressed("player_turn_straight"):
 		up_pressed = true
-	else:
+		move_event = true
+	elif event.is_action_released("player_turn_straight"):
 		up_pressed = false
+		move_event = true
 	
 	if event.is_action_pressed("player_turn_right"):
 		right_pressed = true
-	else:
+		move_event = true
+	elif event.is_action_released("player_turn_right"):
 		right_pressed = false
+		move_event = true
 		
-	_set_direction_by_key()
+	if move_event:
+		_set_direction_by_key()
 
 func _set_direction_by_key():
 	# Always have a strict resolution order
@@ -83,7 +91,7 @@ func _set_direction_by_key():
 	elif right_pressed:
 		_set_next_direction(true)
 		#print('turning right')
-	elif up_pressed:
+	else:
 		_set_next_direction(null)
 		#print('going straight')
 
