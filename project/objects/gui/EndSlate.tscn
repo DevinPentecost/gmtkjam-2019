@@ -30,6 +30,22 @@ func set_score(score):
 
 func _on_RestartButton_pressed():
 	get_tree().reload_current_scene()
+
+
+func _on_SubmitButton_pressed():
+	
+	#Send data for the leaderboard
+	var url = \"https://us-central1-leaderbro-4781d.cloudfunctions.net/leaderboards/add_score?leaderboard_id=gmtkjam2019&name={name}&score={score}\".format({\"name\": $VBoxContainer/HBoxContainer/NameLineInput.text, \"score\": $VBoxContainer/ScoreLabel.text})
+	$HTTPRequest.request(url, PoolStringArray([]), false)
+	$VBoxContainer/ScoreLabel.text = \"SCORE SUBMITTED\"
+	$VBoxContainer/HBoxContainer/NameLineInput.editable = false
+	$VBoxContainer/HBoxContainer/SubmitButton.disabled = true
+	OS.shell_open(\"http://chilidog.faith/lb/ld44\")
+	
+
+
+func _on_NameLineInput_text_changed(new_text):
+	$VBoxContainer/HBoxContainer/SubmitButton.disabled = new_text.length() < 3
 "
 
 [node name="EndSlate" type="PanelContainer"]
@@ -106,4 +122,8 @@ margin_bottom = 100.0
 text = "PLAY AGAIN"
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+[connection signal="text_changed" from="VBoxContainer/HBoxContainer/NameLineInput" to="." method="_on_NameLineInput_text_changed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/SubmitButton" to="." method="_on_SubmitButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/RestartButton" to="." method="_on_RestartButton_pressed"]

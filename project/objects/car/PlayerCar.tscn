@@ -6,7 +6,7 @@
 [ext_resource path="res://objects/audio/driving_engine_sound.tscn" type="PackedScene" id=4]
 [ext_resource path="res://audio_resources/sound_effects/bash.ogg" type="AudioStream" id=5]
 
-[node name="PlayerCar" index="0" groups=[
+[node name="PlayerCar" groups=[
 "player",
 ] instance=ExtResource( 1 )]
 script = ExtResource( 2 )
