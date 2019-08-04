@@ -3,8 +3,12 @@ extends Node2D
 var passenger_message_array = []
 var is_processing_message = false
 
+export var starting_message = "DEFAULT_MESSAGE"
+
 onready var tween_vertical_pos = $texture_all_elements/tween_vertical_pos
 onready var tween_text_visible = $texture_all_elements/texture_text_container/texture_text_border/richtext_message/tween_text_visible
+
+signal message_queue_empty
 
 var is_waiting_for_vertical = false
 var is_waiting_for_text = false
@@ -16,7 +20,7 @@ func append_passenger_message(passenger_message):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	# _on_timer_hide_delay_timeout()
+	$texture_all_elements/texture_text_container/texture_text_border/richtext_message.text = starting_message
 	pass
 
 func _process_next_message():
@@ -27,6 +31,7 @@ func _process_next_message():
 	
 	# Do we have anything in the array to process?
 	if passenger_message_array.size() == 0:
+		emit_signal("message_queue_empty")
 		return
 	
 	# OK, we want to apply the portrait and the message to the elements
