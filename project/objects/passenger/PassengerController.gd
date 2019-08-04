@@ -9,7 +9,6 @@ onready var _landmarks = get_node(landmarks)
 
 onready var _source_pin = $SourcePin
 onready var _destination_pin = $DestinationPin
-onready var _pin_pointer = $PinPointer
 
 var source_landmark = null
 var destination_landmark = null
@@ -38,7 +37,6 @@ func _refresh_passenger():
 	#Move the source
 	_source_pin.move_to_landmark(source_landmark)
 	_source_pin.set_showing(true)
-	_pin_pointer.target_pin = _source_pin
 	
 	#Hide destination
 	_destination_pin.set_showing(false)
@@ -68,7 +66,6 @@ func _on_SourcePin_pin_reached():
 	#Show the new destination
 	_destination_pin.move_to_landmark(destination_landmark)
 	_destination_pin.set_showing(true)
-	_pin_pointer.target_pin = _destination_pin
 	
 	#Hide the source
 	_source_pin.set_showing(false)

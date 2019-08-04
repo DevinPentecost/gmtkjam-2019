@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://objects/passenger/PassengerController.gd" type="Script" id=1]
 [ext_resource path="res://objects/passenger/Pin.tscn" type="PackedScene" id=2]
@@ -13,7 +13,6 @@
 [ext_resource path="res://objects/passenger/textures/dog2b.png" type="Texture" id=11]
 [ext_resource path="res://objects/passenger/textures/dog3b.png" type="Texture" id=12]
 [ext_resource path="res://objects/passenger/textures/dog4b.png" type="Texture" id=13]
-[ext_resource path="res://objects/passenger/PinPointer.tscn" type="PackedScene" id=14]
 
 [node name="PassengerController" type="Node"]
 script = ExtResource( 1 )
@@ -35,8 +34,6 @@ offset = Vector2( 0, -115 )
 [node name="Passenger" parent="." instance=ExtResource( 5 )]
 normal_textures = [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ]
 impatient_textures = [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ) ]
-
-[node name="PinPointer" parent="." instance=ExtResource( 14 )]
 [connection signal="pin_reached" from="SourcePin" to="." method="_on_SourcePin_pin_reached"]
 [connection signal="pin_reached" from="DestinationPin" to="." method="_on_DestinationPin_pin_reached"]
 [connection signal="passenger_impatient" from="Passenger" to="." method="_on_Passenger_passenger_impatient"]
