@@ -1,0 +1,168 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://2d_resources/dogs/dog1a.png" type="Texture" id=1]
+[ext_resource path="res://2d_resources/dogs/dog2a.png" type="Texture" id=2]
+[ext_resource path="res://2d_resources/dogs/dog3a.png" type="Texture" id=3]
+[ext_resource path="res://2d_resources/dogs/dog4a.png" type="Texture" id=4]
+[ext_resource path="res://objects/game/GameMap.tscn" type="PackedScene" id=5]
+[ext_resource path="res://objects/gui/passenger_message.tscn" type="PackedScene" id=6]
+[ext_resource path="res://objects/audio/intro_message.tscn" type="PackedScene" id=7]
+[ext_resource path="res://2d_resources/tiles/player_se.png" type="Texture" id=8]
+[ext_resource path="res://2d_resources/tiles/player_sw.png" type="Texture" id=9]
+[ext_resource path="res://2d_resources/font/pixellari/Pixellari.ttf" type="DynamicFontData" id=10]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+
+export(Array, Texture) var normal_textures = []
+
+var num_audio_done = 0
+
+var cars_visible = true
+var elapsed = 0
+
+var tutorial_strings = [
+	\"Welcome to the INTRODUCTION!\",
+	\"I am so glad you are here to drive us pups around DOG CITY!\",
+	\"Before you jump into your car there's a few things you should know!\",
+	
+	\"Us pooches want to get around the city. You can find us by using the MARKERS.\",
+	\"Once you drive to the MARKER another MARKER will appear.\",
+	\"The faster you take us there the more HAPPY DOG POINTS you get!\",
+	\"If you TAKE TOO LONG then it is GAME OVER!\",
+	\"Its not quite so easy to get around this city...\",
+	
+	\"Every road is a ONE-WAY ROAD, and your TAXI is always moving.\",
+	\"You will need to turn LEFT or RIGHT, or continue STRAIGHT\",
+	\"There are other CARS on the road that will slow you down. Avoid them!\",
+	\"Learn the city layout and practice driving to each location.\",
+	\"Don't forget to submit your score to the leaderboard!\",
+	
+	\"I think you're ready to play!\",
+	\"One last thing: our radio station has a message for you!!\"
+]
+
+var dog_reactions = [
+	\"Oh... here we go...\",
+	\"He's such a goofball...\",
+	\"Does this guy ever stop talking?!?\"
+]
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	randomize()
+	
+	for string in tutorial_strings:
+		var texture_index = randi() % normal_textures.size()
+		var normal_texture = normal_textures[texture_index]
+		
+		var tutorial_message = {}
+		tutorial_message[\"portrait_texture\"] = normal_texture
+		tutorial_message[\"text_message\"] = string
+		$passenger_message.append_passenger_message(tutorial_message)
+
+func _process(delta):
+	elapsed = elapsed + delta
+	
+	if elapsed > 0.66:
+		elapsed = elapsed - 0.66
+		cars_visible = !cars_visible
+		$tutorial_car.visible = cars_visible
+		$bad_car.visible = !cars_visible
+		$yor_taxi.visible = cars_visible
+		$bad_car2.visible = !cars_visible
+
+func _on_passenger_message_message_queue_empty():
+	# Nothing left to say! Lets play the intro?
+	$intro_message.play_next_clip()
+	pass # Replace with function body.
+
+
+func _on_intro_message_clip_playback_complete():
+	num_audio_done = num_audio_done + 1
+	$intro_message.play_next_clip()
+	
+	if (num_audio_done == 1):
+		var texture_index = randi() % normal_textures.size()
+		var normal_texture = normal_textures[texture_index]
+		var tutorial_message = {}
+		tutorial_message[\"portrait_texture\"] = normal_texture
+		tutorial_message[\"text_message\"] = dog_reactions[0]
+		$passenger_message.append_passenger_message(tutorial_message)
+	
+	if (num_audio_done == 3):
+		var texture_index = randi() % normal_textures.size()
+		var normal_texture = normal_textures[texture_index]
+		var tutorial_message = {}
+		tutorial_message[\"portrait_texture\"] = normal_texture
+		tutorial_message[\"text_message\"] = dog_reactions[1]
+		$passenger_message.append_passenger_message(tutorial_message)
+		
+	if (num_audio_done == 5):
+		var texture_index = randi() % normal_textures.size()
+		var normal_texture = normal_textures[texture_index]
+		var tutorial_message = {}
+		tutorial_message[\"portrait_texture\"] = normal_texture
+		tutorial_message[\"text_message\"] = dog_reactions[2]
+		$passenger_message.append_passenger_message(tutorial_message)
+		
+	pass # Replace with function body.
+
+
+func _on_intro_message_intro_playback_complete():
+	get_tree().change_scene(\"res://main_scenes/main_menu.tscn\")
+	pass # Replace with function body.
+"
+
+[sub_resource type="DynamicFont" id=2]
+size = 21
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 10 )
+
+[node name="TutorailScreen" type="Node2D"]
+script = SubResource( 1 )
+normal_textures = [ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ) ]
+
+[node name="GameMap" parent="." instance=ExtResource( 5 )]
+cell_quadrant_size = 32
+tile_data = PoolIntArray( -524282, 29, 0, -524281, 28, 0, -458747, 28, 0, -458746, 26, 0, -458745, 27, 0, -458744, 28, 0, -393212, 28, 0, -393211, 26, 0, -393210, 27, 0, -393209, 26, 0, -393208, 26, 0, -393207, 29, 0, -327677, 28, 0, -327676, 27, 0, -327675, 4, 0, -327674, 10, 0, -327673, 10, 0, -327672, 5, 0, -327671, 26, 0, -327670, 29, 0, -262142, 28, 0, -262141, 27, 0, -262140, 26, 0, -262139, 12, 0, -262138, 6, 0, -262137, 17, 0, -262136, 9, 0, -262135, 27, 0, -262134, 27, 0, -262133, 28, 0, -196607, 28, 0, -196606, 26, 0, -196605, 4, 0, -196604, 11, 0, -196603, 1, 0, -196602, 11, 0, -196601, 11, 0, -196600, 3, 0, -196599, 27, 0, -196598, 27, 0, -196597, 27, 0, -196596, 29, 0, -131072, 28, 0, -131071, 26, 0, -131070, 27, 0, -131069, 9, 0, -131068, 20, 0, -131067, 12, 0, -131066, 8, 0, -131065, 8, 0, -131064, 26, 0, -131063, 27, 0, -131062, 0, 0, -131061, 27, 0, -131060, 26, 0, -131059, 28, 0, -1, 29, 0, -65536, 26, 0, -65535, 26, 0, -65534, 24, 0, -65533, 9, 0, -65532, 8, 0, -65531, 12, 0, -65530, 8, 0, -65529, 8, 0, -65528, 27, 0, -65527, 27, 0, -65526, 27, 0, -65525, 27, 0, -65524, 27, 0, -65523, 27, 0, -65522, 28, 0, 0, 29, 0, 1, 26, 0, 2, 26, 0, 3, 9, 0, 4, 22, 0, 5, 12, 0, 6, 18, 0, 7, 8, 0, 8, 26, 0, 9, 27, 0, 10, 27, 0, 11, 27, 0, 12, 26, 0, 13, 26, 0, 14, 26, 0, 15, 29, 0, 65537, 28, 0, 65538, 26, 0, 65539, 9, 0, 65540, 23, 0, 65541, 12, 0, 65542, 25, 0, 65543, 26, 0, 65544, 27, 0, 65545, 27, 0, 65546, 27, 0, 65547, 27, 0, 65548, 26, 0, 65549, 26, 0, 65550, 27, 0, 65551, 27, 0, 65552, 29, 0, 131074, 28, 0, 131075, 2, 0, 131076, 10, 0, 131077, 3, 0, 131078, 27, 0, 131079, 26, 0, 131080, 26, 0, 131081, 27, 0, 131082, 27, 0, 131083, 27, 0, 131084, 26, 0, 131085, 27, 0, 131086, 26, 0, 131087, 29, 0, 196611, 28, 0, 196612, 26, 0, 196613, 26, 0, 196614, 27, 0, 196615, 27, 0, 196616, 27, 0, 196617, 27, 0, 196618, 27, 0, 196619, 27, 0, 196620, 26, 0, 196621, 26, 0, 196622, 28, 0, 262148, 29, 0, 262149, 26, 0, 262150, 27, 0, 262151, 26, 0, 262152, 27, 0, 262153, 27, 0, 262154, 27, 0, 262155, 27, 0, 262156, 26, 0, 262157, 29, 0, 327685, 29, 0, 327686, 27, 0, 327687, 27, 0, 327688, 27, 0, 327689, 27, 0, 327690, 27, 0, 327691, 27, 0, 327692, 29, 0, 393222, 29, 0, 393223, 27, 0, 393224, 27, 0, 393225, 27, 0, 393226, 27, 0, 393227, 29, 0, 458759, 28, 0, 458760, 27, 0, 458761, 26, 0, 458762, 28, 0, 524296, 29, 0, 524297, 28, 0 )
+
+[node name="passenger_message" parent="." instance=ExtResource( 6 )]
+
+[node name="intro_message" parent="." instance=ExtResource( 7 )]
+
+[node name="tutorial_car" type="Sprite" parent="."]
+visible = false
+position = Vector2( 605.16, 173.606 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 8 )
+
+[node name="bad_car" type="Sprite" parent="."]
+visible = false
+self_modulate = Color( 1, 0.52549, 0.52549, 1 )
+position = Vector2( 421.711, 175.648 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 9 )
+
+[node name="yor_taxi" type="RichTextLabel" parent="."]
+visible = false
+margin_left = 513.095
+margin_top = 208.571
+margin_right = 677.095
+margin_bottom = 257.571
+custom_fonts/normal_font = SubResource( 2 )
+text = "YOUR TAXI
+"
+
+[node name="bad_car2" type="RichTextLabel" parent="."]
+visible = false
+margin_left = 394.707
+margin_top = 203.154
+margin_right = 558.707
+margin_bottom = 252.154
+custom_fonts/normal_font = SubResource( 2 )
+text = "AVOID"
+[connection signal="message_queue_empty" from="passenger_message" to="." method="_on_passenger_message_message_queue_empty"]
+[connection signal="clip_playback_complete" from="intro_message" to="." method="_on_intro_message_clip_playback_complete"]
+[connection signal="intro_playback_complete" from="intro_message" to="." method="_on_intro_message_intro_playback_complete"]
