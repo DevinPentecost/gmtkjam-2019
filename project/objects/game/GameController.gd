@@ -6,7 +6,7 @@ export(NodePath) var passenger_controller
 onready var _passenger_controller = get_node(passenger_controller)
 
 #Player time and scoring
-var start_time = 180 #Seconds
+var start_time = 120 #Seconds
 var remaining_time = start_time
 var score = 0
 
