@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://objects/game/GameController.tscn" type="PackedScene" id=1]
 [ext_resource path="res://audio_resources/callouts/good_work.ogg" type="AudioStream" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://objects/landmarks/Landmarks.tscn" type="PackedScene" id=7]
 [ext_resource path="res://objects/landmarks/Landmark.tscn" type="PackedScene" id=8]
 [ext_resource path="res://objects/passenger/PassengerController.tscn" type="PackedScene" id=9]
+[ext_resource path="res://audio_resources/bgm.ogg" type="AudioStream" id=10]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
@@ -252,6 +253,12 @@ callout_direction = 3
 
 [node name="PassengerController" parent="." instance=ExtResource( 9 )]
 landmarks = NodePath("../Landmarks")
+
+[node name="bgm" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
+stream = ExtResource( 10 )
+volume_db = -15.0
+autoplay = true
 [connection signal="time_up" from="GameController" to="MainGUI" method="_on_GameController_time_up"]
 [connection signal="finished" from="GameController/audio_ping" to="GameController" method="_on_audio_ping_finished"]
 [connection signal="finished" from="MainGUI/audio_gameover" to="MainGUI" method="_on_audio_gameover_finished"]

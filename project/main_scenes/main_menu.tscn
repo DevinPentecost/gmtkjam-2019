@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://main_scenes/main_menu.gd" type="Script" id=1]
 [ext_resource path="res://2d_resources/20180528-205447-jpg.jpg" type="Texture" id=2]
+[ext_resource path="res://audio_resources/bgm.ogg" type="AudioStream" id=3]
 
 [node name="node_toplevel" type="Node2D"]
 script = ExtResource( 1 )
@@ -45,6 +46,11 @@ margin_top = 530.432
 margin_right = 927.681
 margin_bottom = 572.432
 text = "LEADERBOARDS"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = -30.0
+autoplay = true
 [connection signal="pressed" from="panel_primary/button_start" to="." method="_on_button_start_pressed"]
 [connection signal="pressed" from="panel_primary/button_howto" to="." method="_on_button_howto_pressed"]
 [connection signal="pressed" from="panel_primary/button_leaderboard" to="." method="_on_button_leaderboard_pressed"]
