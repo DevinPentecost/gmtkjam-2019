@@ -23,8 +23,8 @@ func _process(delta):
 		return
 	
 	#Refresh labels
-	$VBoxContainer/TimeLabel.text = \"TIME: \" + str(game_controller.remaining_time)
-	$VBoxContainer/ScoreLabel.text = \"SCORE: \" + str(game_controller.score)
+	$VBoxContainer/TimeLabel.text = \"TIME: \" + str(int(game_controller.remaining_time))
+	$VBoxContainer/ScoreLabel.text = \"SCORE: \" + str(int(game_controller.score))
 "
 
 [node name="ScoreGUI" type="PanelContainer"]

@@ -26,7 +26,11 @@ func show(show=true):
 
 func set_score(score):
 	
-	$VBoxContainer/ScoreLabel.text = str(score)"
+	$VBoxContainer/ScoreLabel.text = str(score)
+
+func _on_RestartButton_pressed():
+	get_tree().reload_current_scene()
+"
 
 [node name="EndSlate" type="PanelContainer"]
 anchor_left = 0.5
@@ -95,10 +99,11 @@ margin_top = 72.0
 margin_right = 219.0
 margin_bottom = 76.0
 
-[node name="Button" type="Button" parent="VBoxContainer"]
+[node name="RestartButton" type="Button" parent="VBoxContainer"]
 margin_top = 80.0
 margin_right = 219.0
 margin_bottom = 100.0
-text = "REPLAY"
+text = "PLAY AGAIN"
 
 [node name="Tween" type="Tween" parent="."]
+[connection signal="pressed" from="VBoxContainer/RestartButton" to="." method="_on_RestartButton_pressed"]

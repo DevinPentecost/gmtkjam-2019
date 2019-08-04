@@ -5,7 +5,7 @@ signal passenger_impatient
 #Scoring variables
 var base_score = 100.0
 var current_score = base_score
-var score_time_loss = 10.0 #Per second
+var score_time_loss = 2.0 #Per second
 var impatient = false
 var bonus_time = 5.0
 var picked_up = false
@@ -64,7 +64,7 @@ func get_pickup_message():
 func get_dropoff_message():
 	return {
 		"portrait_texture": normal_texture,
-		"text_message": "Thanks for dropping me off here is " + str(current_score)
+		"text_message": "Thanks for dropping me off here is " + str(int(current_score))
 	}
 
 func get_impatient_message():

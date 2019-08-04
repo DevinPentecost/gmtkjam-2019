@@ -58,6 +58,7 @@ func _on_SourcePin_pin_reached():
 	
 	#Let people know
 	emit_signal("passenger_collected", _passenger)
+	_passenger.picked_up = true
 	
 	if _message_gui:
 		_message_gui.append_passenger_message(_passenger.get_pickup_message())

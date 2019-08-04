@@ -30,6 +30,9 @@ func out_of_time():
 	game_over = true
 	set_process(false)
 	emit_signal("time_up", score)
+	
+	#Pause all cars
+	get_tree().paused = true
 
 
 func _on_PassengerController_passenger_dropped_off(passenger):
