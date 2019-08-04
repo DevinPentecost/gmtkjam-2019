@@ -5,6 +5,9 @@ class_name Car
 var _road_graph = null
 var current_connection = null
 
+# Prevent stuttering by always ignoring last connection
+var previous_connection = null
+
 #Where we're going to next after we reach the end
 var next_connection = null
 var next_graph_node = null
@@ -16,7 +19,7 @@ var target_path = null
 
 #How fast a car goes
 export(float) var speed = 300
-var _close_enough_threshold = 30
+var _close_enough_threshold = 1
 
 #Animating the blinker
 var blink_on = false
@@ -36,11 +39,15 @@ func _ready():
 	set_physics_process(true)
 
 func _physics_process(delta):
+	if current_connection == null:
+		return
+		
+	var delta_speed = delta * speed
+	var used_speed = 0.0
 	
-	#Move towards the target
-	var movement_vector = (current_connection.get_destination_node().global_position - global_position).normalized() * speed
-	movement_vector *= delta
-	position += movement_vector
+	var pos = global_position
+	var pos2 = current_connection.get_destination_node().global_position
+	var next_frame_position = (pos2-pos).normalized()*abs(delta_speed) + pos
 	
 	#Should we pick a new destination?
 	if next_graph_node == null and global_position.distance_squared_to(current_connection.get_destination_node().global_position) <= turn_distance_start:
@@ -48,12 +55,21 @@ func _physics_process(delta):
 		pick_next_destination()
 	
 	#Are we 'close enough'?
-	var pos = global_position
-	var pos2 = current_connection.get_destination_node().global_position
-	var distance = global_position.distance_squared_to(current_connection.get_destination_node().global_position)
-	if global_position.distance_squared_to(current_connection.get_destination_node().global_position) <= _close_enough_threshold:
-		global_position = current_connection.get_destination_node().global_position
+	var hit_along_path = Geometry.segment_intersects_circle(pos, next_frame_position, pos2, _close_enough_threshold)
+	
+	if hit_along_path >= 0 and previous_connection != current_connection:
+		# we would hit this during this frame...
+		# mark that we hit this one
+		previous_connection = current_connection
+		# zip to it
+		global_position = position.linear_interpolate(next_frame_position, hit_along_path)
+		used_speed = hit_along_path
+		# mark next location as current
 		next_destination()
+	
+	#Move towards the target with any leftover speed
+	var movement_vector = (current_connection.get_destination_node().global_position - global_position).normalized() * delta_speed * (1.0-used_speed)
+	position += movement_vector
 	
 	match current_connection.direction:
 		0: $Sprite.texture = sprite_nw
@@ -63,6 +79,10 @@ func _physics_process(delta):
 		
 
 func next_destination():
+	if next_connection == null:
+		print('null next connection')
+		return
+
 	#Start going to the next one and lose our previous 'next'
 	current_connection = next_connection
 	
