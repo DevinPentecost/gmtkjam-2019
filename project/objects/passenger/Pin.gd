@@ -23,6 +23,7 @@ func _ready():
 	_screen_notifier.connect("screen_entered", self, "screen_entered")
 	_screen_notifier.connect("screen_exited", self, "screen_exited")
 	
+	
 func screen_entered():
 	print()
 	if _showing:
@@ -118,6 +119,12 @@ func _process(delta):
 		_pointer.visible = false
 	
 	_pointer.global_position = _float_point
-	_pointer.set_rotation(_pointer.global_position.angle_to_point(global_position))
+	#_pointer.set_rotation(_pointer.global_position.angle_to_point(global_position))
+	# just use the same sprite
+	var normal_sprite = find_node('Sprite')
+	_pointer.texture = normal_sprite.texture
+	_pointer.scale = normal_sprite.scale
+	_pointer.scale = normal_sprite.scale
+
 	update()
 	
