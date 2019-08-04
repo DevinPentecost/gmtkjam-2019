@@ -18,7 +18,7 @@ enum directions {
 	WEST
 }
 var direction_map = {directions.NORTH: "north", directions.EAST: "east", directions.SOUTH: "south", directions.WEST: "west"}
-export(names) var callout_direction = directions.NORTH
+export(directions) var callout_direction = directions.NORTH
 
 func _ready():
 	#Hide
