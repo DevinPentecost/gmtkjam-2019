@@ -37,11 +37,12 @@ func _ready():
 		add_child(new_car)
 		
 	#Player starts at the top
-	var start_node = $RoadGraph.get_graph_node(0)
+	var start_node = $RoadGraph.get_random_node()
+	var start_connection = $RoadGraph.get_random_connection(start_node)
 	var player_car = PlayerCar.instance()
 	player_car.global_position = start_node.global_position
 	player_car._road_graph = $RoadGraph
-	player_car._target_graph_node = start_node
+	player_car.current_connection = start_connection[0]
 	add_child(player_car)
 "
 
