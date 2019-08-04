@@ -140,10 +140,11 @@ func _build_connections():
 			connection_map[source_node].append([connection_node, destination_node])
 
 
-func get_random_connection(source_node):
+func get_random_connection(source_node=null):
 	"""
 	Returns a random path, which is a [RoadGraphConnection, RoadGraphNode] tuple
 	"""
+	source_node = source_node if source_node else get_random_node()
 	
 	#How many destinations?
 	var paths = connection_map.get(source_node)

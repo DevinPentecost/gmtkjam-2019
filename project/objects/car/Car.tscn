@@ -1,10 +1,14 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://objects/car/Car.gd" type="Script" id=1]
 [ext_resource path="res://objects/car/player_ne.png" type="Texture" id=2]
 [ext_resource path="res://icon.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
+
+[sub_resource type="Gradient" id=2]
+offsets = PoolRealArray( 0, 0.91974, 1 )
+colors = PoolColorArray( 0, 0, 0, 1, 0.794166, 0.794166, 0.794166, 1, 0.819608, 0.819608, 0.819608, 0 )
 
 [node name="Car" type="Area2D" groups=[
 "car",
@@ -41,5 +45,19 @@ wait_time = 0.25
 [node name="FlashTimer" type="Timer" parent="."]
 wait_time = 0.33
 one_shot = true
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+show_behind_parent = true
+amount = 16
+lifetime = 0.25
+local_coords = false
+emission_shape = 1
+emission_sphere_radius = 6.0
+gravity = Vector2( 0, -25 )
+angular_velocity = 720.0
+angular_velocity_random = 0.6
+scale_amount = 6.0
+scale_amount_random = 0.25
+color_ramp = SubResource( 2 )
 [connection signal="area_entered" from="." to="." method="_on_Car_area_entered"]
 [connection signal="timeout" from="BlinkerTimer" to="." method="_on_BlinkerTimer_timeout"]

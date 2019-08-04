@@ -8,6 +8,7 @@ var current_score = base_score
 var score_time_loss = 10.0 #Per second
 var impatient = false
 var bonus_time = 5.0
+var picked_up = false
 
 #To and from locations
 var _source = null
@@ -25,9 +26,12 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if not picked_up:
+		return
 	
 	#Lose score over time
 	current_score -= score_time_loss * delta
+	current_score = max(current_score, 10)
 	
 	#Are we impatient?
 	if not impatient and current_score < 40:
@@ -37,6 +41,7 @@ func _process(delta):
 
 func refresh(source_landmark, destination_landmark):
 	impatient = false
+	picked_up = false
 	_source = source_landmark
 	_destination = destination_landmark
 	

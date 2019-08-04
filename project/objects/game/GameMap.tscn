@@ -11,7 +11,7 @@ func _ready():
 	#Fade into existance
 	$Tween.interpolate_property(self, \"modulate:a\", 0, 1, 1.5, Tween.TRANS_QUART, Tween.EASE_OUT)
 	$Tween.interpolate_property(self, \"position:y\", -100, 0, 1.5, Tween.TRANS_QUART, Tween.EASE_OUT)
-	$Tween.start()
+	#$Tween.start()
 "
 
 [node name="GameMap" type="TileMap"]

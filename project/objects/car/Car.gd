@@ -17,7 +17,6 @@ var target_path = null
 #How fast a car goes
 export(float) var speed = 300
 var _close_enough_threshold = 30
-var current_direction = null
 
 #Animating the blinker
 var blink_on = false
@@ -56,11 +55,12 @@ func _physics_process(delta):
 		global_position = current_connection.get_destination_node().global_position
 		next_destination()
 	
-	#Point towards it
-	var towards_rotation = current_connection.get_destination_node().global_position.angle_to_point(global_position)
-	rotation = towards_rotation
-	current_direction = current_connection.get_destination_node().global_position.direction_to(global_position)
-	
+	match current_connection.direction:
+		0: $Sprite.texture = sprite_nw
+		1: $Sprite.texture = sprite_ne
+		2: $Sprite.texture = sprite_sw
+		3: $Sprite.texture = sprite_se
+		
 
 func next_destination():
 	#Start going to the next one and lose our previous 'next'
@@ -74,10 +74,9 @@ func next_destination():
 
 func pick_next_destination():
 	#Ask for a new connection
-	target_path = _road_graph.get_random_connection(current_connection._target_graph_node)
+	target_path = _road_graph.get_random_connection(current_connection.get_destination_node())
 	next_connection = target_path[0]
 	set_next_destination(target_path[1])
-	
 	
 
 func set_next_destination(destination_node):
@@ -110,7 +109,7 @@ func _show_blinker(blinker, on=false):
 		$Sprite/RightBlinker.visible = false
 	
 	var target_blinker = $Sprite/LeftBlinker if not blinker else $Sprite/RightBlinker
-	target_blinker.visible = on
+	#target_blinker.visible = on
 
 
 func _on_Car_area_entered(area):

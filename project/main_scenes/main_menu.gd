@@ -19,5 +19,5 @@ func _on_button_leaderboard_pressed():
 
 
 func _on_button_start_pressed():
-	get_tree().change_scene("res://main_scenes/game_scene.tscn")
+	get_tree().change_scene("res://main_scenes/main_game.tscn")
 	pass # Replace with function body.
