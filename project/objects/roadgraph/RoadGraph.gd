@@ -63,6 +63,7 @@ func build_from_game_map(game_map):
 			final_position.y += 64
 			new_node.position = final_position
 			new_node.grid_pos = cell_position
+			new_node.visible = false
 			$RoadGraphNodes.add_child(new_node)
 			
 			#Store it for later
@@ -109,7 +110,9 @@ func build_from_game_map(game_map):
 					new_connection._node_a = intersection_cells[intersection_cell]
 					new_connection._node_b = target_cell
 					new_connection.direction = direction_enum
+					new_connection.visible = false
 					$RoadGraphConnections.add_child(new_connection)
+					
 	
 	_build_connections()
 	

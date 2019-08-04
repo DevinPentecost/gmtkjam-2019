@@ -66,18 +66,18 @@ scroll_active = false
 [node name="tween_text_visible" type="Tween" parent="texture_all_elements/texture_text_container/texture_text_border/richtext_message"]
 
 [node name="texture_portrait_border" type="TextureRect" parent="texture_all_elements"]
-margin_left = 1.41812
-margin_top = 11.0906
-margin_right = 216.418
-margin_bottom = 211.091
+margin_left = -3.0
+margin_top = 11.0
+margin_right = 217.0
+margin_bottom = 211.0
 rect_min_size = Vector2( 125, 200 )
 rect_clip_content = true
 
 [node name="texture_portrait" type="TextureRect" parent="texture_all_elements/texture_portrait_border"]
 show_behind_parent = true
-margin_left = -8.20151
+margin_left = 2.5787
 margin_top = -6.78442
-margin_right = 1015.8
+margin_right = 1026.58
 margin_bottom = 1046.22
 rect_min_size = Vector2( 125, 200 )
 rect_scale = Vector2( 0.2, 0.2 )
@@ -87,9 +87,9 @@ stretch_mode = 4
 
 [node name="portrait_back" type="TextureRect" parent="texture_all_elements/texture_portrait_border/texture_portrait"]
 show_behind_parent = true
-margin_left = 20.9503
+margin_left = -27.8172
 margin_top = 286.319
-margin_right = 1044.95
+margin_right = 996.183
 margin_bottom = 1310.32
 texture = ExtResource( 4 )
 

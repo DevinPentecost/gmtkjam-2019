@@ -40,7 +40,8 @@ func play_pickup_callout(name, location):
 		return
 	
 	# Load and start playing the sound
-	$audio_callout.stream = callouts[name][location]
+	var stream = callouts[name][location]
+	$audio_callout.stream = stream
 	$audio_callout.play()
 	playing = true
 	

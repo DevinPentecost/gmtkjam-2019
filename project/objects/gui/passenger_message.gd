@@ -16,7 +16,7 @@ func append_passenger_message(passenger_message):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	_on_timer_hide_delay_timeout()
+	# _on_timer_hide_delay_timeout()
 	pass
 
 func _process_next_message():

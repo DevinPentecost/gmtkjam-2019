@@ -26,6 +26,10 @@ func _process(delta):
 	speed += accelleration * delta
 	speed = min(speed, max_speed)
 	
+	# Adjust audio
+	var speed_percent = (100 * (speed - min_speed)) / (max_speed - min_speed)
+	$driving_engine_sound.set_pitch_scale(speed_percent)
+	
 func pick_next_destination():
 	
 	#Try going straight
