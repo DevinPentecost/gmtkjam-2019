@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://2d_resources/dogs/dog1a.png" type="Texture" id=1]
 [ext_resource path="res://2d_resources/dogs/dog2a.png" type="Texture" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://2d_resources/tiles/player_se.png" type="Texture" id=8]
 [ext_resource path="res://2d_resources/tiles/player_sw.png" type="Texture" id=9]
 [ext_resource path="res://2d_resources/font/pixellari/Pixellari.ttf" type="DynamicFontData" id=10]
+[ext_resource path="res://2d_resources/tiles/pickup.png" type="Texture" id=11]
+[ext_resource path="res://2d_resources/tiles/destination.png" type="Texture" id=12]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
@@ -64,13 +66,17 @@ func _ready():
 func _process(delta):
 	elapsed = elapsed + delta
 	
-	if elapsed > 0.66:
-		elapsed = elapsed - 0.66
+	if elapsed > 1.50:
+		elapsed = elapsed - 1.50
 		cars_visible = !cars_visible
 		$tutorial_car.visible = cars_visible
-		$bad_car.visible = !cars_visible
 		$yor_taxi.visible = cars_visible
+		$bad_car.visible = !cars_visible
 		$bad_car2.visible = !cars_visible
+		$s_p.visible = !cars_visible
+		$s_p2.visible = !cars_visible
+		$d_p.visible = cars_visible
+		$d_p2.visible = cars_visible
 
 func _on_passenger_message_message_queue_empty():
 	# Nothing left to say! Lets play the intro?
@@ -147,22 +153,52 @@ texture = ExtResource( 9 )
 
 [node name="yor_taxi" type="RichTextLabel" parent="."]
 visible = false
-margin_left = 513.095
-margin_top = 208.571
-margin_right = 677.095
-margin_bottom = 257.571
+margin_left = 555.554
+margin_top = 189.332
+margin_right = 719.554
+margin_bottom = 238.332
 custom_fonts/normal_font = SubResource( 2 )
 text = "YOUR TAXI
 "
 
 [node name="bad_car2" type="RichTextLabel" parent="."]
 visible = false
-margin_left = 394.707
-margin_top = 203.154
-margin_right = 558.707
-margin_bottom = 252.154
+margin_left = 339.643
+margin_top = 193.203
+margin_right = 503.643
+margin_bottom = 242.203
 custom_fonts/normal_font = SubResource( 2 )
-text = "AVOID"
+text = "AVOID TRAFFIC"
+
+[node name="s_p" type="Sprite" parent="."]
+visible = false
+position = Vector2( 276.241, 46.4271 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 11 )
+
+[node name="s_p2" type="RichTextLabel" parent="."]
+visible = false
+margin_left = 215.384
+margin_top = 7.8917
+margin_right = 379.384
+margin_bottom = 56.8917
+custom_fonts/normal_font = SubResource( 2 )
+text = "PICK ME UP"
+
+[node name="d_p" type="Sprite" parent="."]
+visible = false
+position = Vector2( 746.696, 75.8302 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 12 )
+
+[node name="d_p2" type="RichTextLabel" parent="."]
+visible = false
+margin_left = 668.16
+margin_top = 15.7063
+margin_right = 832.16
+margin_bottom = 64.7063
+custom_fonts/normal_font = SubResource( 2 )
+text = "DROP OFF HERE"
 [connection signal="message_queue_empty" from="passenger_message" to="." method="_on_passenger_message_message_queue_empty"]
 [connection signal="clip_playback_complete" from="intro_message" to="." method="_on_intro_message_clip_playback_complete"]
 [connection signal="intro_playback_complete" from="intro_message" to="." method="_on_intro_message_intro_playback_complete"]

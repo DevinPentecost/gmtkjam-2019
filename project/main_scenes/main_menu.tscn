@@ -46,4 +46,5 @@ margin_right = 927.681
 margin_bottom = 572.432
 text = "LEADERBOARDS"
 [connection signal="pressed" from="panel_primary/button_start" to="." method="_on_button_start_pressed"]
+[connection signal="pressed" from="panel_primary/button_howto" to="." method="_on_button_howto_pressed"]
 [connection signal="pressed" from="panel_primary/button_leaderboard" to="." method="_on_button_leaderboard_pressed"]

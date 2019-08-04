@@ -15,12 +15,9 @@ func _ready():
 
 func _on_button_leaderboard_pressed():
 	OS.shell_open("http://chilidog.faith/lb/gmtk19")
-	pass # Replace with function body.
 
 func _on_button_start_pressed():
 	get_tree().change_scene("res://main_scenes/main_game.tscn")
-	pass # Replace with function body.
 
 func _on_button_howto_pressed():
 	get_tree().change_scene("res://scenes/tutorial/tut1.tscn")
-	pass # Replace with function body.
