@@ -35,6 +35,13 @@ var sprite_se = preload("res://objects/car/player_se.png")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
+	# Adjust the speed by some amount
+	var adjust_percent = randi() % 20
+	adjust_percent = adjust_percent - 10
+	adjust_percent = 100 + adjust_percent
+	adjust_percent = adjust_percent / 100.0
+	speed = speed * adjust_percent
+	
 	#Process along with physics for the sake of collision
 	set_physics_process(true)
 
