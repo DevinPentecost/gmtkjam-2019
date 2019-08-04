@@ -35,17 +35,15 @@ func _process(delta):
 	var speed_percent = (100 * (speed - min_speed)) / (max_speed - min_speed)
 	$driving_engine_sound.set_pitch_scale(speed_percent)
 	
-	# hold keys
-	_set_direction_by_key()
-	
 func pick_next_destination():
 	
-	# hold keys
+	# held keys get checked first
 	_set_direction_by_key()
-	
-	#Try going straight
 	target_path = _road_graph.get_connection_for_direction(current_connection, player_desired_direction)
-	
+
+	#Try going straight
+	if not target_path:
+		target_path = _road_graph.get_connection_for_direction(current_connection, null)
 	
 	#Did we find a good path for the desired direction?
 	if target_path:
@@ -54,7 +52,6 @@ func pick_next_destination():
 		next_connection = target_path[0]
 	else:
 		#Pick a random one (call super)
-		print('hey take the wheel!')
 		.pick_next_destination()
 
 func _unhandled_key_input(event):
@@ -81,13 +78,13 @@ func _set_direction_by_key():
 	# when multiple keys are pressed
 	if left_pressed:
 		_set_next_direction(false)
-		print('turning left')
+		#print('turning left')
 	elif right_pressed:
 		_set_next_direction(true)
-		print('turning right')
+		#print('turning right')
 	elif up_pressed:
 		_set_next_direction(null)
-		print('going straight')
+		#print('going straight')
 
 func _set_next_direction(direction):
 	player_desired_direction = direction
