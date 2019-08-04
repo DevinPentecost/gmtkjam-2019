@@ -156,6 +156,30 @@ func get_connection_for_direction(connection, direction):
 	direction can be {false, null, true} for left, straight, right
 	"""
 	
+	# Our current connection knows both nodes
+	var current_dir = current_connection.direction
+	
+	# Get all of the paths connecting to the end of this line
+	var available_paths = connection_map[current_connection.get_destination_node()]
+	var path_left = null
+	var path_straight = null
+	var path_right = null
+	
+	match current_dir:
+		NW:
+			# Currently going northwest.
+			pass
+		SW:
+			pass
+		SE:
+			pass
+		NE:
+			pass
+	
+	
+	
+	
+	
 	# Here's the plan
 	# We're gonna pick a path no matter what. The player's input just helps us pick which one
 	var available_paths = connection_map[source_node]
@@ -187,49 +211,35 @@ func get_connection_for_direction(connection, direction):
 		# We know the direction of this path. How does it compare to the current direction?
 		var turn_angle = path_direction.angle()
 		
+		var angle_diff = current_angle - turn_angle
+		var angle_diff_fmod = fmod(angle_diff, PI)
+		
 		# Which bucket does this path fit in?
 		# If a path option is null just fill it
 		if path_leftmost == null:
 			path_leftmost = path
 			angle_leftmost = turn_angle
-			closeness_leftmost = abs(abs(current_angle) - abs(turn_angle))
 		if path_rightmost == null:
 			path_rightmost = path
 			angle_rightmost = turn_angle
-			closeness_rightmost = abs(abs(current_angle) - abs(turn_angle))
 		if path_straightmost == null:
 			path_straightmost = path
-			closeness_straightmost = abs(abs(current_angle) - abs(turn_angle))
 		
 		# Is this our new rightmost?
-		if turn_angle > angle_rightmost:
-			# Is the old one our new straight?
-			if closeness_rightmost < closeness_straightmost:
-				path_straightmost = path_rightmost
-				closeness_straightmost = closeness_rightmost
-			
+		if angle_diff_fmod < angle_rightmost:
 			# This is the new rightmost
 			path_rightmost = path
-			angle_rightmost = turn_angle
-			closeness_rightmost = abs(abs(current_angle) - abs(angle_rightmost))
+			angle_rightmost = angle_diff_fmod
 		
 		# What about leftmost?
-		if turn_angle < angle_leftmost:
-			# Is the old one our new straight?
-			if closeness_leftmost < closeness_straightmost:
-				path_straightmost = path_leftmost
-				closeness_straightmost = closeness_leftmost
-			
+		if angle_diff_fmod > angle_leftmost:
 			# This is the new leftmost
 			path_leftmost = path
-			angle_leftmost = turn_angle
-			closeness_leftmost = abs(abs(current_angle) - abs(angle_leftmost))
+			angle_leftmost = angle_diff_fmod
 		
 		# Is this actually our new straight??
-		var new_path_closeness = abs(abs(current_angle) - abs(turn_angle))
-		if new_path_closeness < closeness_straightmost:
+		if angle_diff_fmod == 0:
 			path_straightmost = path
-			closeness_straightmost = new_path_closeness
 		
 	# Now all we have to do is select 
 	match direction:

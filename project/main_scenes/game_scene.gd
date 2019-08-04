@@ -15,8 +15,8 @@ func _ready():
 	$passenger_message.append_passenger_message(dict0)
 	
 	var dict1 = {}
-	dict1["portrait_texture"] = load("res://2d_resources/dogs/dog2a.png")
-	dict1["text_message"] = "kill yourself"
+	dict1["portrait_texture"] = load("res://2d_resources/dogs/dog2b.png")
+	dict1["text_message"] = "This is taking too long..."
 	$passenger_message.append_passenger_message(dict1)
 	pass # Replace with function body.
 

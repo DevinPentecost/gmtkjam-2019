@@ -14,7 +14,7 @@ script/source = "extends Node2D
 const Car = preload(\"res://objects/car/Car.tscn\")
 const PlayerCar = preload(\"res://objects/car/PlayerCar.tscn\")
 
-var car_count = 10
+var car_count = 0
 
 
 # Called when the node enters the scene tree for the first time.
