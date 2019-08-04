@@ -68,6 +68,12 @@ tile_data = PoolIntArray( 0, 4, 0, 1, 11, 0, 2, 11, 0, 3, 11, 0, 4, 11, 0, 5, 16
 [node name="MainGUI" parent="." instance=ExtResource( 6 )]
 pause_mode = 2
 
+[node name="ScoreGUI" parent="MainGUI" index="1"]
+margin_left = -23.7501
+margin_top = -13.3
+margin_right = -23.7501
+margin_bottom = -13.3
+
 [node name="audio_gameover" type="AudioStreamPlayer" parent="MainGUI"]
 
 [node name="Landmarks" parent="." instance=ExtResource( 7 )]

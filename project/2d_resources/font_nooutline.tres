@@ -3,11 +3,7 @@
 [ext_resource path="res://2d_resources/BalooChettan-Regular.ttf" type="DynamicFontData" id=1]
 
 [resource]
-size = 42
-outline_size = 3
-outline_color = Color( 0.133333, 0.133333, 0.133333, 1 )
-extra_spacing_top = 7
-extra_spacing_bottom = 7
-extra_spacing_char = 1
-extra_spacing_space = 2
+size = 48
+outline_color = Color( 0.133333, 0.12549, 0.203922, 1 )
+use_filter = true
 font_data = ExtResource( 1 )

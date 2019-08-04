@@ -1,11 +1,11 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://objects/gui/patch_rect.png" type="Texture" id=1]
-[ext_resource path="res://objects/gui/font.tres" type="DynamicFont" id=2]
+[ext_resource path="res://2d_resources/white_rect.png" type="Texture" id=1]
+[ext_resource path="res://2d_resources/font_nooutline.tres" type="DynamicFont" id=2]
 
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 1 )
-region_rect = Rect2( 0, 0, 8, 8 )
+region_rect = Rect2( 0, 0, 1151, 633 )
 margin_left = 2.0
 margin_right = 2.0
 margin_top = 2.0
@@ -82,72 +82,82 @@ script = SubResource( 2 )
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 677.0
-margin_bottom = 270.0
+margin_right = 569.0
+margin_bottom = 306.0
 
 [node name="ScoreHeaderLabel" type="Label" parent="VBoxContainer"]
-margin_right = 675.0
-margin_bottom = 57.0
+margin_right = 567.0
+margin_bottom = 70.0
 custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.133333, 0.12549, 0.203922, 1 )
 text = "SCORE"
 align = 1
 valign = 1
 uppercase = true
 
 [node name="ScoreLabel" type="Label" parent="VBoxContainer"]
-margin_top = 61.0
-margin_right = 675.0
-margin_bottom = 118.0
+margin_top = 74.0
+margin_right = 567.0
+margin_bottom = 144.0
 custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.133333, 0.12549, 0.203922, 1 )
 text = "0000"
 align = 1
 valign = 1
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
-margin_top = 122.0
-margin_right = 675.0
-margin_bottom = 126.0
+visible = false
+margin_top = 148.0
+margin_right = 557.0
+margin_bottom = 152.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 130.0
-margin_right = 675.0
-margin_bottom = 193.0
+margin_top = 148.0
+margin_right = 567.0
+margin_bottom = 224.0
 
 [node name="NameLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
 margin_top = 3.0
-margin_right = 143.0
-margin_bottom = 60.0
+margin_right = 169.0
+margin_bottom = 73.0
 custom_fonts/font = ExtResource( 2 )
-text = "NAME: "
+custom_colors/font_color = Color( 0.133333, 0.12549, 0.203922, 1 )
+text = "  NAME: "
 
 [node name="NameLineInput" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
-margin_left = 147.0
-margin_right = 347.0
-margin_bottom = 63.0
+margin_left = 173.0
+margin_right = 373.0
+margin_bottom = 76.0
 rect_min_size = Vector2( 200, 0 )
 size_flags_horizontal = 3
 caret_blink = true
 caret_blink_speed = 0.5
 
 [node name="SubmitButton" type="Button" parent="VBoxContainer/HBoxContainer"]
-margin_left = 351.0
-margin_right = 675.0
-margin_bottom = 63.0
+margin_left = 377.0
+margin_right = 567.0
+margin_bottom = 76.0
 custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color_disabled = Color( 0.85098, 0.341176, 0.388235, 1 )
+custom_colors/font_color = Color( 0.85098, 0.341176, 0.388235, 1 )
+custom_colors/font_color_hover = Color( 0.67451, 0.196078, 0.196078, 1 )
+custom_colors/font_color_pressed = Color( 0.67451, 0.196078, 0.196078, 1 )
 disabled = true
-text = "SUBMIT SCORE"
+text = "SUBMIT "
 flat = true
 
 [node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
-margin_top = 197.0
-margin_right = 675.0
-margin_bottom = 201.0
+visible = false
+margin_top = 228.0
+margin_right = 557.0
+margin_bottom = 232.0
 
 [node name="RestartButton" type="Button" parent="VBoxContainer"]
-margin_top = 205.0
-margin_right = 675.0
-margin_bottom = 268.0
+margin_top = 228.0
+margin_right = 567.0
+margin_bottom = 304.0
 custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.388235, 0.607843, 1, 1 )
 text = "PLAY AGAIN"
 flat = true
 
