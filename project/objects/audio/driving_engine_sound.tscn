@@ -6,6 +6,6 @@
 [node name="driving_engine_sound" type="Node2D"]
 script = ExtResource( 1 )
 
-[node name="audioplayer_engine" type="AudioStreamPlayer2D" parent="."]
-position = Vector2( 519.427, 312.324 )
+[node name="audioplayer_engine" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
+volume_db = -15.0
