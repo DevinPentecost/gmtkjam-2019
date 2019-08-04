@@ -20,7 +20,7 @@ margin_right = 41.0
 margin_bottom = 39.0
 
 [node name="20180528-205447-jpg" type="Sprite" parent="panel_primary/background_image"]
-position = Vector2( 483.71, 299.292 )
+position = Vector2( 480, 300 )
 scale = Vector2( 0.754988, 0.827907 )
 texture = ExtResource( 2 )
 

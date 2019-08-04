@@ -1,23 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://objects/gui/passenger_message.gd" type="Script" id=1]
 [ext_resource path="res://2d_resources/dogs/chatbox.png" type="Texture" id=2]
-[ext_resource path="res://2d_resources/dogs/dog2a.png" type="Texture" id=3]
-[ext_resource path="res://2d_resources/dogs/circle.png" type="Texture" id=4]
-[ext_resource path="res://objects/audio/new_dropoff_callout.tscn" type="PackedScene" id=5]
-
-[sub_resource type="DynamicFontData" id=1]
-font_path = "res://2d_resources/font/pixellari/Pixellari.ttf"
-
-[sub_resource type="DynamicFont" id=2]
-size = 42
-outline_size = 3
-outline_color = Color( 0.133333, 0.133333, 0.133333, 1 )
-extra_spacing_top = 7
-extra_spacing_bottom = 7
-extra_spacing_char = 1
-extra_spacing_space = 2
-font_data = SubResource( 1 )
+[ext_resource path="res://objects/gui/font.tres" type="DynamicFont" id=3]
+[ext_resource path="res://2d_resources/dogs/dog2a.png" type="Texture" id=4]
+[ext_resource path="res://2d_resources/dogs/circle.png" type="Texture" id=5]
+[ext_resource path="res://objects/audio/new_dropoff_callout.tscn" type="PackedScene" id=6]
 
 [node name="passenger_message" type="Node2D" groups=[
 "message_gui",
@@ -57,7 +45,7 @@ margin_right = 913.0
 margin_bottom = 173.0
 rect_min_size = Vector2( 605, 115 )
 rect_clip_content = false
-custom_fonts/normal_font = SubResource( 2 )
+custom_fonts/normal_font = ExtResource( 3 )
 custom_colors/default_color = Color( 0.85098, 0.341176, 0.388235, 1 )
 meta_underlined = false
 text = "I can't wait to go home and see my family!"
@@ -82,7 +70,7 @@ margin_bottom = 1046.22
 rect_min_size = Vector2( 125, 200 )
 rect_scale = Vector2( 0.2, 0.2 )
 rect_clip_content = true
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 stretch_mode = 4
 
 [node name="portrait_back" type="TextureRect" parent="texture_all_elements/texture_portrait_border/texture_portrait"]
@@ -91,14 +79,14 @@ margin_left = -27.8172
 margin_top = 286.319
 margin_right = 996.183
 margin_bottom = 1310.32
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="tween_vertical_pos" type="Tween" parent="texture_all_elements"]
 
 [node name="timer_hide_delay" type="Timer" parent="."]
 one_shot = true
 
-[node name="new_dropoff_callout" parent="." instance=ExtResource( 5 )]
+[node name="new_dropoff_callout" parent="." instance=ExtResource( 6 )]
 [connection signal="tween_all_completed" from="texture_all_elements/texture_text_container/texture_text_border/richtext_message/tween_text_visible" to="." method="_on_tween_text_visible_tween_all_completed"]
 [connection signal="tween_all_completed" from="texture_all_elements/tween_vertical_pos" to="." method="_on_tween_vertical_pos_tween_all_completed"]
 [connection signal="timeout" from="timer_hide_delay" to="." method="_on_timer_hide_delay_timeout"]
