@@ -3,7 +3,7 @@ extends Car
 #Player gradually speeds up
 var min_speed = 0.85 * speed
 var max_speed = 2.5 * speed
-var accelleration = (max_speed - speed) / 120
+var accelleration = (max_speed - speed) / 60
 
 #Camera zoom based on speed
 var speed_camera_zoom = [Vector2(min_speed, max_speed), Vector2(1.25, 2.25)] #Speed vs camera lerps
@@ -59,4 +59,16 @@ func _set_next_direction(direction):
 		var destination = target_path[1]
 		set_next_destination(destination)
 		next_connection = target_path[0]
+
+func take_hit(area):
+	
+	#Slow down
+	if not flashing:
+		$Tween.interpolate_property(self, "accelleration", -100, accelleration, 2, Tween.TRANS_LINEAR, Tween.EASE_IN)
+		$Tween.start()
+		
+	#Start flashing, we're just a regular car
+	flash()
+	
+	
 	

@@ -115,13 +115,14 @@ func _show_blinker(blinker, on=false):
 func _on_Car_area_entered(area):
 	
 	#So what did we hit?
-	if area.is_in_group("player"):
+	if area.is_in_group("car"):
 		#Ouchie!
-		take_hit()
+		take_hit(area)
 
-func take_hit():
+func take_hit(area):
 	#Start flashing, we're just a regular car
-	flash()
+	if area.is_in_group("player"):
+		flash()
 	
 func flash():
 	#Start flashing

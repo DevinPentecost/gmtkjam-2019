@@ -48,8 +48,8 @@ one_shot = true
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 show_behind_parent = true
-amount = 16
-lifetime = 0.25
+amount = 24
+lifetime = 0.5
 local_coords = false
 emission_shape = 1
 emission_sphere_radius = 6.0

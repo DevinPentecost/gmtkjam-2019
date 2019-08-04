@@ -69,7 +69,7 @@ func _process(delta):
 	update()
 
 func _draw():
-	
+	return
 	#Do we have both nodes?
 	if not _node_a or not _node_b:
 		return
