@@ -46,9 +46,12 @@ func _physics_process(delta):
 	#Should we pick a new destination?
 	if next_graph_node == null and global_position.distance_squared_to(current_connection.get_destination_node().global_position) <= turn_distance_start:
 		#Pick a new destination
-		next_connection = pick_next_destination()
+		pick_next_destination()
 	
 	#Are we 'close enough'?
+	var pos = global_position
+	var pos2 = current_connection.get_destination_node().global_position
+	var distance = global_position.distance_squared_to(current_connection.get_destination_node().global_position)
 	if global_position.distance_squared_to(current_connection.get_destination_node().global_position) <= _close_enough_threshold:
 		global_position = current_connection.get_destination_node().global_position
 		next_destination()
