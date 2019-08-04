@@ -3,6 +3,13 @@ extends Node2D
 const RoadGraphNode = preload("res://objects/roadgraph/RoadGraphNode.tscn")
 const RoadGraphConnection = preload("res://objects/roadgraph/RoadGraphConnection.tscn")
 
+enum directions {
+	NW,
+	NE,
+	SW,
+	SE
+}
+
 var connection_map = {}
 
 # Debug stuff
@@ -77,19 +84,19 @@ func build_from_game_map(game_map):
 				[-1, 0]:
 					#NW
 					valid_direction = step_tile == nw_road
-					direction_enum = RoadGraphConnection.directions.NW
+					direction_enum = directions.NW
 				[0, -1]:
 					#NE
 					valid_direction = step_tile == ne_road
-					direction_enum = RoadGraphConnection.directions.NE
+					direction_enum = directions.NE
 				[0, 1]:
 					#SW
 					valid_direction = step_tile == sw_road
-					direction_enum = RoadGraphConnection.directions.SW
+					direction_enum = directions.SW
 				[1, 0]:
 					#SE
 					valid_direction = step_tile == se_road
-					direction_enum = RoadGraphConnection.directions.SE
+					direction_enum = directions.SE
 			
 			#Was this a good direction to go?
 			if valid_direction:
@@ -149,6 +156,14 @@ func get_random_connection(source_node):
 	var path = paths[path_index]
 	return path
 
+func _get_exact_direction_from_pathlist(path_list, direction):
+	for path in path_list:
+		if path[0].direction == direction:
+			return path
+	
+	# Nothing?
+	return null
+	
 func get_connection_for_direction(connection, direction):
 	"""
 	Find the 'best' match, or null, for the given direction
@@ -156,89 +171,55 @@ func get_connection_for_direction(connection, direction):
 	direction can be {false, null, true} for left, straight, right
 	"""
 	
-	# Here's the plan
-	# We're gonna pick a path no matter what. The player's input just helps us pick which one
-	var available_paths = connection_map[source_node]
+	# Our current connection knows both nodes
+	var current_dir = connection.direction
 	
-	# We know the current direction of the player -- lets determine the angle to continue on each of these paths
-	var path_leftmost = null
-	var path_rightmost = null
-	var path_straightmost = null
+	# Get all of the paths connecting to the end of this line
+	var available_paths = connection_map[connection.get_destination_node()]
+	var path_left = null
+	var path_straight = null
+	var path_right = null
 	
-	var angle_leftmost = 0
-	var angle_rightmost = 0
-
-	var closeness_leftmost = 0
-	var closeness_rightmost = 0
-	var closeness_straightmost = 0
-
-	# How is the character moving right now?
-	var current_angle = current_position.direction_to(source_node.position).angle()
-		
-	#Check all directions
-	for path in available_paths:
-		
-		#What's the angle on this one?
-		var path_connection = path[0]
-		var path_source = path_connection.get_source_node()
-		var path_destination = path_connection.get_destination_node()
-		var path_direction = path_source.position.direction_to(path_destination.position)
-		
-		# We know the direction of this path. How does it compare to the current direction?
-		var turn_angle = path_direction.angle()
-		
-		# Which bucket does this path fit in?
-		# If a path option is null just fill it
-		if path_leftmost == null:
-			path_leftmost = path
-			angle_leftmost = turn_angle
-			closeness_leftmost = abs(abs(current_angle) - abs(turn_angle))
-		if path_rightmost == null:
-			path_rightmost = path
-			angle_rightmost = turn_angle
-			closeness_rightmost = abs(abs(current_angle) - abs(turn_angle))
-		if path_straightmost == null:
-			path_straightmost = path
-			closeness_straightmost = abs(abs(current_angle) - abs(turn_angle))
-		
-		# Is this our new rightmost?
-		if turn_angle > angle_rightmost:
-			# Is the old one our new straight?
-			if closeness_rightmost < closeness_straightmost:
-				path_straightmost = path_rightmost
-				closeness_straightmost = closeness_rightmost
+	match current_dir:
+		directions.NE:
+			path_left = _get_exact_direction_from_pathlist(available_paths, directions.NW)
+			path_straight = _get_exact_direction_from_pathlist(available_paths, directions.NE)
+			path_right = _get_exact_direction_from_pathlist(available_paths, directions.SE)
+		directions.SE:
+			path_left = _get_exact_direction_from_pathlist(available_paths, directions.NE)
+			path_straight = _get_exact_direction_from_pathlist(available_paths, directions.SE)
+			path_right = _get_exact_direction_from_pathlist(available_paths, directions.SW)
+		directions.SW:
+			path_left = _get_exact_direction_from_pathlist(available_paths, directions.SE)
+			path_straight = _get_exact_direction_from_pathlist(available_paths, directions.SW)
+			path_right = _get_exact_direction_from_pathlist(available_paths, directions.NW)
+		directions.NW:
+			path_left = _get_exact_direction_from_pathlist(available_paths, directions.SW)
+			path_straight = _get_exact_direction_from_pathlist(available_paths, directions.NW)
+			path_right = _get_exact_direction_from_pathlist(available_paths, directions.NE)
 			
-			# This is the new rightmost
-			path_rightmost = path
-			angle_rightmost = turn_angle
-			closeness_rightmost = abs(abs(current_angle) - abs(angle_rightmost))
-		
-		# What about leftmost?
-		if turn_angle < angle_leftmost:
-			# Is the old one our new straight?
-			if closeness_leftmost < closeness_straightmost:
-				path_straightmost = path_leftmost
-				closeness_straightmost = closeness_leftmost
-			
-			# This is the new leftmost
-			path_leftmost = path
-			angle_leftmost = turn_angle
-			closeness_leftmost = abs(abs(current_angle) - abs(angle_leftmost))
-		
-		# Is this actually our new straight??
-		var new_path_closeness = abs(abs(current_angle) - abs(turn_angle))
-		if new_path_closeness < closeness_straightmost:
-			path_straightmost = path
-			closeness_straightmost = new_path_closeness
-		
-	# Now all we have to do is select 
 	match direction:
 		null:
-			return path_straightmost
+			# Going straight
+			if path_straight:
+				return path_straight
+			if path_left:
+				return path_left
+			return path_right
 		true:
-			return path_rightmost
+			# Going right
+			if path_right:
+				return path_right
+			if path_straight:
+				return path_straight
+			return path_left
 		false:
-			return path_leftmost
+			# Going left
+			if path_left:
+				return path_left
+			if path_straight:
+				return path_straight
+			return path_right
 
 func get_graph_node(node_index):
 	return $RoadGraphNodes.get_child(node_index)

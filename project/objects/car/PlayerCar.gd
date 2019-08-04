@@ -29,12 +29,13 @@ func _process(delta):
 func pick_next_destination():
 	
 	#Try going straight
-	target_path = _road_graph.get_connection_for_direction(current_connection, null, 1)
+	target_path = _road_graph.get_connection_for_direction(current_connection, null)
 	
 	#Did we find a good path for the desired direction?
 	if target_path:
 		var destination = target_path[1]
 		set_next_destination(destination)
+		next_connection = target_path[0]
 	else:
 		#Pick a random one (call super)
 		.pick_next_destination()
@@ -49,12 +50,13 @@ func _unhandled_key_input(event):
 	elif event.is_action_pressed("player_turn_right"):
 		_set_next_direction(true)
 
-func _set_next_direction(direction, threshold=0.5):
+func _set_next_direction(direction):
 	#Search for one
-	target_path = _road_graph.get_connection_for_direction(current_connection, direction, threshold)
+	target_path = _road_graph.get_connection_for_direction(current_connection, direction)
 	
 	#Did we find a good path for the desired direction?
 	if target_path:
 		var destination = target_path[1]
 		set_next_destination(destination)
+		next_connection = target_path[0]
 	
