@@ -22,12 +22,6 @@ func set_selected(_selected):
 	emit_signal("selected", selected)
 	update()
 
-func _enter_tree():
-	#Check for selection
-	return
-	editor_selection = EditorInterface.get_editor_interface().get_selection()
-	editor_selection.connect("selection_changed", self, "on_editor_selection_changed")
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
