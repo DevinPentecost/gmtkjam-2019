@@ -3,9 +3,9 @@ extends Area2D
 signal pin_reached
 
 export var debug = true
-
-export(NodePath) var floating_radius_area
-onready var _floating_radius_area = get_node(floating_radius_area)
+export var compass_radius = 250.0
+export(NodePath) var player
+onready var _player = get_node(player)
 
 #Tweening stuff
 var height_offset = 100.0
@@ -14,8 +14,7 @@ var target_position = Vector2(0, 0)
 var _showing = false
 
 onready var _pointer = find_node('FloatingSprite')
-onready var _ray = RayCast2D.new()
-onready var _float_point = global_position # must be global
+onready var _float_point = Vector2(0,0) # must be global
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -25,13 +24,6 @@ func _ready():
 	_screen_notifier.connect("screen_entered", self, "screen_entered")
 	_screen_notifier.connect("screen_exited", self, "screen_exited")
 	
-	add_child(_ray)
-	_ray.collide_with_areas = true
-	_ray.collide_with_bodies = false
-	_ray.exclude_parent = true
-	
-	_ray.set_collision_mask_bit(_floating_radius_area.collision_layer, true)
-
 func screen_entered():
 	print()
 	if _showing:
@@ -68,27 +60,43 @@ func move_to_landmark(target_landmark):
 	position.y -= height_offset
 
 func _on_Pin_area_entered(area):
-
 	#Did we connect with the player?
 	if area.is_in_group("player"):
 		#We must have reached the destination!
 		emit_signal("pin_reached")
 
 func _draw():
-	if debug:
-		draw_line(_ray.position, _ray.cast_to, Color(255, 0, 0), 1)
-		draw_line(_ray.position, to_local(_float_point), Color(255, 209, 0), 1)
+	if debug and _player:
+		draw_line(Vector2(0,0), _float_point, Color(255, 0, 0), 1)
+		
+		
+		# testing canvas edges
+		draw_rect(_local_rect(_get_camera_rect()), Color(255, 0, 0), false)
 
-func _update_float_point(area):
-	_ray.cast_to = _ray.to_local(area.global_position) # ray.cast_to is local
-	_ray.force_raycast_update()
-	if _ray.is_colliding():
-		_float_point = _ray.get_collision_point()
-	if debug:
-		update()
-	
+func _get_camera_rect():
+	# returns in global positioned rect!!
+	var vtrans = get_canvas_transform()
+	var top_left = -vtrans.get_origin() / vtrans.get_scale()
+	var vsize = get_viewport_rect().size
+	return Rect2(top_left, vsize/vtrans.get_scale())
+
+func _local_rect(grect):
+	return Rect2(to_local(grect.position), grect.size)
+
+#func _get_camera_intersection(gpos):
+	# check each border of the screen
+#	Geometry.segment_intersects_segment_2d()
 
 func _process(delta):
-	# cast to target area
-	if _floating_radius_area:
-		_update_float_point(_floating_radius_area)
+	var tpos = _player.global_position
+	
+	var dist = (to_local(tpos).length() - compass_radius)
+	if dist > 0:
+		_float_point = to_local(tpos).normalized() * dist
+	else:
+		_pointer.visible = false
+		
+	if debug and _player:
+		update()
+	
+	_pointer.global_position = to_global(_float_point)
