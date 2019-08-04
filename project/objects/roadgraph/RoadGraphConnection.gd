@@ -11,6 +11,14 @@ export(NodePath) var node_b = null setget set_node_b
 var _node_b = null
 export(bool) var a_to_b = true
 
+enum directions {
+	NW,
+	NE,
+	SW,
+	SE
+}
+var direction = directions.NW
+
 #Drawing variables
 var draw_width = 2
 var draw_color = Color(1, 1, 1, 1)

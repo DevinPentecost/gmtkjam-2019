@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://objects/gui/passenger_message.gd" type="Script" id=1]
 [ext_resource path="res://2d_resources/dogs/chatbox.png" type="Texture" id=2]
 [ext_resource path="res://2d_resources/dogs/dog2a.png" type="Texture" id=3]
 [ext_resource path="res://2d_resources/dogs/circle.png" type="Texture" id=4]
+[ext_resource path="res://objects/audio/new_dropoff_callout.tscn" type="PackedScene" id=5]
 
 [sub_resource type="DynamicFontData" id=1]
 font_path = "res://2d_resources/font/pixellari/Pixellari.ttf"
@@ -96,6 +97,8 @@ texture = ExtResource( 4 )
 
 [node name="timer_hide_delay" type="Timer" parent="."]
 one_shot = true
+
+[node name="new_dropoff_callout" parent="." instance=ExtResource( 5 )]
 [connection signal="tween_all_completed" from="texture_all_elements/texture_text_container/texture_text_border/richtext_message/tween_text_visible" to="." method="_on_tween_text_visible_tween_all_completed"]
 [connection signal="tween_all_completed" from="texture_all_elements/tween_vertical_pos" to="." method="_on_tween_vertical_pos_tween_all_completed"]
 [connection signal="timeout" from="timer_hide_delay" to="." method="_on_timer_hide_delay_timeout"]

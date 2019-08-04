@@ -61,6 +61,7 @@ func _on_SourcePin_pin_reached():
 	
 	if _message_gui:
 		_message_gui.append_passenger_message(_passenger.get_pickup_message())
+		_message_gui.play_pickup_callout(_passenger._destination.get_callout_info())
 	
 	#Show the new destination
 	_destination_pin.move_to_landmark(destination_landmark)
@@ -78,3 +79,4 @@ func _on_Passenger_passenger_impatient():
 	#Tell the message gui to do stuff
 	if _message_gui:
 		_message_gui.append_passenger_message(_passenger.get_impatient_message())
+	

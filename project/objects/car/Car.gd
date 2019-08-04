@@ -3,9 +3,10 @@ class_name Car
 
 #Roads and destination
 var _road_graph = null
-var _target_graph_node = null
+var current_connection = null
 
 #Where we're going to next after we reach the end
+var next_connection = null
 var next_graph_node = null
 var turn_direction = null #False for Left, True for Right, Null for Forward/NA
 var turn_distance_start = 40000 #How far away to pick a new direction (Squared)
@@ -24,6 +25,11 @@ var blink_on = false
 #Flashing for invluln
 var flashing = false
 
+var sprite_nw = preload("res://objects/car/player_nw.png")
+var sprite_ne = preload("res://objects/car/player_ne.png")
+var sprite_sw = preload("res://objects/car/player_sw.png")
+var sprite_se = preload("res://objects/car/player_se.png")
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
@@ -33,28 +39,29 @@ func _ready():
 func _physics_process(delta):
 	
 	#Move towards the target
-	var movement_vector = (_target_graph_node.global_position - global_position).normalized() * speed
+	var movement_vector = (current_connection.get_destination_node().global_position - global_position).normalized() * speed
 	movement_vector *= delta
 	position += movement_vector
 	
 	#Should we pick a new destination?
-	if next_graph_node == null and global_position.distance_squared_to(_target_graph_node.global_position) <= turn_distance_start:
+	if next_graph_node == null and global_position.distance_squared_to(current_connection.get_destination_node().global_position) <= turn_distance_start:
 		#Pick a new destination
-		pick_next_destination()
+		next_connection = pick_next_destination()
 	
 	#Are we 'close enough'?
-	if global_position.distance_squared_to(_target_graph_node.global_position) <= _close_enough_threshold:
-		global_position = _target_graph_node.global_position
+	if global_position.distance_squared_to(current_connection.get_destination_node().global_position) <= _close_enough_threshold:
+		global_position = current_connection.get_destination_node().global_position
 		next_destination()
 	
 	#Point towards it
-	var towards_rotation = _target_graph_node.global_position.angle_to_point(global_position)
+	var towards_rotation = current_connection.get_destination_node().global_position.angle_to_point(global_position)
 	rotation = towards_rotation
-	current_direction = _target_graph_node.global_position.direction_to(global_position)
+	current_direction = current_connection.get_destination_node().global_position.direction_to(global_position)
+	
 
 func next_destination():
 	#Start going to the next one and lose our previous 'next'
-	_target_graph_node = next_graph_node
+	current_connection = next_connection
 	
 	#No current turn
 	next_graph_node = null
@@ -64,7 +71,8 @@ func next_destination():
 
 func pick_next_destination():
 	#Ask for a new connection
-	target_path = _road_graph.get_random_connection(_target_graph_node)
+	target_path = _road_graph.get_random_connection(current_connection._target_graph_node)
+	next_connection = target_path[0]
 	set_next_destination(target_path[1])
 	
 	
@@ -75,7 +83,7 @@ func set_next_destination(destination_node):
 	next_graph_node = destination_node
 	
 	#Are we turning?
-	var next_angle = _target_graph_node.global_position.angle_to_point(global_position)
+	var next_angle = current_connection.get_destination_node().global_position.angle_to_point(global_position)
 	if abs(next_angle) > min_turn_threshold:
 		#Which way?
 		if sign(next_angle):

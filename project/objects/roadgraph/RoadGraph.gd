@@ -72,19 +72,24 @@ func build_from_game_map(game_map):
 			var step_position = intersection_cell + directionv
 			var step_tile = game_map.get_cellv(step_position)
 			var valid_direction = false
+			var direction_enum = null
 			match direction:
 				[-1, 0]:
 					#NW
 					valid_direction = step_tile == nw_road
+					direction_enum = RoadGraphConnection.directions.NW
 				[0, -1]:
 					#NE
 					valid_direction = step_tile == ne_road
+					direction_enum = RoadGraphConnection.directions.NE
 				[0, 1]:
 					#SW
 					valid_direction = step_tile == sw_road
+					direction_enum = RoadGraphConnection.directions.SW
 				[1, 0]:
 					#SE
 					valid_direction = step_tile == se_road
+					direction_enum = RoadGraphConnection.directions.SE
 			
 			#Was this a good direction to go?
 			if valid_direction:
@@ -96,6 +101,7 @@ func build_from_game_map(game_map):
 					var new_connection = RoadGraphConnection.instance()
 					new_connection._node_a = intersection_cells[intersection_cell]
 					new_connection._node_b = target_cell
+					new_connection.direction = direction_enum
 					$RoadGraphConnections.add_child(new_connection)
 	
 	_build_connections()
@@ -143,7 +149,7 @@ func get_random_connection(source_node):
 	var path = paths[path_index]
 	return path
 
-func get_connection_for_direction(current_position, source_node, direction, threshold=0.2):
+func get_connection_for_direction(connection, direction):
 	"""
 	Find the 'best' match, or null, for the given direction
 	Compared against the current, normalized direction vector

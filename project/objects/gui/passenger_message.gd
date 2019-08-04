@@ -16,6 +16,7 @@ func append_passenger_message(passenger_message):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	_on_timer_hide_delay_timeout()
 	pass
 
 func _process_next_message():
@@ -78,3 +79,6 @@ func _on_timer_hide_delay_timeout():
 	
 	tween_vertical_pos.interpolate_property($texture_all_elements, 'rect_position', Vector2(0, 390), Vector2(0, 640), 0.33, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
 	tween_vertical_pos.set_active(true)
+
+func play_pickup_callout(callout):
+	$new_dropoff_callout.play_pickup_callout(callout[0], callout[1])
