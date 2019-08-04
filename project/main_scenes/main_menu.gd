@@ -14,7 +14,7 @@ func _ready():
 
 
 func _on_button_leaderboard_pressed():
-	OS.shell_open("http://chilidog.faith/lb/ld44")
+	OS.shell_open("http://chilidog.faith/lb/gmtk19")
 	pass # Replace with function body.
 
 func _on_button_start_pressed():

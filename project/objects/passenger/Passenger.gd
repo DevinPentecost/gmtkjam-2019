@@ -67,7 +67,7 @@ func get_pickup_message():
 func get_dropoff_message():
 	return {
 		"portrait_texture": normal_texture,
-		"text_message": "Thanks for dropping me off here is " + str(int(current_score))
+		"text_message": "Thanks for dropping me off here's " + str(int(current_score)) + " bones! Woof!"
 	}
 
 func get_impatient_message():

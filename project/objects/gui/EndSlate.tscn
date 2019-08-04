@@ -29,6 +29,7 @@ func set_score(score):
 	$VBoxContainer/ScoreLabel.text = str(score)
 
 func _on_RestartButton_pressed():
+	get_tree().paused = false
 	get_tree().reload_current_scene()
 
 
@@ -40,7 +41,7 @@ func _on_SubmitButton_pressed():
 	$VBoxContainer/ScoreLabel.text = \"SCORE SUBMITTED\"
 	$VBoxContainer/HBoxContainer/NameLineInput.editable = false
 	$VBoxContainer/HBoxContainer/SubmitButton.disabled = true
-	OS.shell_open(\"http://chilidog.faith/lb/ld44\")
+	OS.shell_open(\"http://chilidog.faith/lb/gmtk19\")
 	
 
 
