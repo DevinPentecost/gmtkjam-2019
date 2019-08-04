@@ -33,7 +33,7 @@ func out_of_time():
 	
 	#Pause all cars
 	get_tree().paused = true
-
+	
 
 func _on_PassengerController_passenger_dropped_off(passenger):
 	
@@ -42,3 +42,11 @@ func _on_PassengerController_passenger_dropped_off(passenger):
 	
 	#Add some time
 	remaining_time += passenger.bonus_time
+	$audio_ping.play()
+	
+	
+
+
+func _on_audio_ping_finished():
+	$audio_dropoff.play()
+	pass # Replace with function body.

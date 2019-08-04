@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/bash.ogg-f0d2a874e00a9c57e8473751a05b7e1f.oggstr"
+
+[deps]
+
+source_file="res://audio_resources/sound_effects/bash.ogg"
+dest_files=[ "res://.import/bash.ogg-f0d2a874e00a9c57e8473751a05b7e1f.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -25,6 +25,17 @@ func _ready():
 func _on_GameController_time_up(final_score):
 	$EndSlate.show(true)
 	$EndSlate.set_score(final_score)
+	
+	$audio_gameover.stream = load(\"res://audio_resources/callouts/gameover.ogg\")
+	$audio_gameover.play()
+
+
+var no_more_game_over_audio = false
+func _on_audio_gameover_finished():
+	if no_more_game_over_audio == false:
+		no_more_game_over_audio = true
+		$audio_gameover.stream = load(\"res://audio_resources/callouts/leaderboard.ogg\")
+		$audio_gameover.play()
 "
 
 [node name="MainGUI" type="CanvasLayer"]

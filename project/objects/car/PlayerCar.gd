@@ -74,5 +74,5 @@ func take_hit(area):
 	#Start flashing, we're just a regular car
 	flash()
 	
-	
+	$AudioStreamPlayer.play()
 	

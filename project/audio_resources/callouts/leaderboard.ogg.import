@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/leaderboard.ogg-a2e88f5b23502109c586ee37b161937b.oggstr"
+
+[deps]
+
+source_file="res://audio_resources/callouts/leaderboard.ogg"
+dest_files=[ "res://.import/leaderboard.ogg-a2e88f5b23502109c586ee37b161937b.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0
