@@ -5,6 +5,11 @@ var min_speed = 0.85 * speed
 var max_speed = 2.5 * speed
 var accelleration = (max_speed - speed) / 60
 
+var player_desired_direction = null
+var left_pressed = false
+var right_pressed = false
+var up_pressed = false
+
 #Camera zoom based on speed
 var speed_camera_zoom = [Vector2(min_speed, max_speed), Vector2(1.25, 2.25)] #Speed vs camera lerps
 
@@ -35,6 +40,8 @@ func pick_next_destination():
 	#Try going straight
 	target_path = _road_graph.get_connection_for_direction(current_connection, null)
 	
+	_set_direction_by_key()
+	
 	#Did we find a good path for the desired direction?
 	if target_path:
 		var destination = target_path[1]
@@ -45,14 +52,35 @@ func pick_next_destination():
 		.pick_next_destination()
 
 func _unhandled_key_input(event):
-	
 	#Was a direction hit?
+	
 	if event.is_action_pressed("player_turn_left"):
-		_set_next_direction(false)
+		left_pressed = true
+	elif event.is_action_released("player_turn_left"):
+		left_pressed = false
+	
+	if event.is_action_pressed("player_turn_straight"):
+		up_pressed = true
 	elif event.is_action_pressed("player_turn_straight"):
-		_set_next_direction(null)
+		up_pressed = false
+	
+	if event.is_action_pressed("player_turn_right"):
+		right_pressed = true
+		
 	elif event.is_action_pressed("player_turn_right"):
+		right_pressed = false
+		
+	_set_direction_by_key()
+
+func _set_direction_by_key():
+	# Always have a strict resolution order
+	# when multiple keys are pressed
+	if left_pressed:
+		_set_next_direction(false)
+	elif right_pressed:
 		_set_next_direction(true)
+	elif up_pressed:
+		_set_next_direction(null)
 
 func _set_next_direction(direction):
 	#Search for one
