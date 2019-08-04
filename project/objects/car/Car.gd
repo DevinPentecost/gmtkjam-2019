@@ -36,11 +36,12 @@ func _ready():
 	set_physics_process(true)
 
 func _physics_process(delta):
+	if current_connection == null:
+		return
 	
-	#Move towards the target
-	var movement_vector = (current_connection.get_destination_node().global_position - global_position).normalized() * speed
-	movement_vector *= delta
-	position += movement_vector
+	var pos = global_position
+	var pos2 = current_connection.get_destination_node().global_position
+	var next_frame_position = (pos2-pos).normalized()*abs(speed) + pos
 	
 	#Should we pick a new destination?
 	if next_graph_node == null and global_position.distance_squared_to(current_connection.get_destination_node().global_position) <= turn_distance_start:
@@ -48,12 +49,23 @@ func _physics_process(delta):
 		pick_next_destination()
 	
 	#Are we 'close enough'?
-	var pos = global_position
-	var pos2 = current_connection.get_destination_node().global_position
-	var distance = global_position.distance_squared_to(current_connection.get_destination_node().global_position)
-	if global_position.distance_squared_to(current_connection.get_destination_node().global_position) <= _close_enough_threshold:
+	var hit_along_path = Geometry.segment_intersects_circle(pos, next_frame_position, pos2, _close_enough_threshold)
+	
+	if hit_along_path >= 0:
+		# we would hit this during this frame...
 		global_position = current_connection.get_destination_node().global_position
 		next_destination()
+		position = position.linear_interpolate(next_frame_position, hit_along_path)
+	
+	#Move towards the target
+	var movement_vector = (current_connection.get_destination_node().global_position - global_position).normalized() * (speed * (1.0-hit_along_path))
+	movement_vector *= delta
+	position += movement_vector
+	
+	#Point towards it
+	var towards_rotation = current_connection.get_destination_node().global_position.angle_to_point(global_position)
+	rotation = towards_rotation
+	current_direction = current_connection.get_destination_node().global_position.direction_to(global_position)
 	
 	match current_connection.direction:
 		0: $Sprite.texture = sprite_nw
