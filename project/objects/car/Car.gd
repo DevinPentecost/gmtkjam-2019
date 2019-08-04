@@ -74,7 +74,7 @@ func next_destination():
 
 func pick_next_destination():
 	#Ask for a new connection
-	target_path = _road_graph.get_random_connection(current_connection._target_graph_node)
+	target_path = _road_graph.get_random_connection(current_connection.get_destination_node())
 	next_connection = target_path[0]
 	set_next_destination(target_path[1])
 	
